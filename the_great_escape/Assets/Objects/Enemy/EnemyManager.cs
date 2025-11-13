@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     public float max_radius;
     public float bias_front;
 
-    private List<GameObject> enemies;
+    public List<Enemy> enemies;
     private float time_since_spawn;
     private Player player;
 
@@ -19,7 +19,7 @@ public class EnemyManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        enemies = new List<GameObject>();
+        enemies = new List<Enemy>();
         time_since_spawn = 0.0f;
         player = FindFirstObjectByType<Player>();
     }
@@ -55,6 +55,9 @@ public class EnemyManager : MonoBehaviour
 
         var spawn_pos =  player.transform.position + new Vector3(relative_pos.x + spawn_offset.x, relative_pos.y + spawn_offset.y, 0.0f);
 
-        Instantiate(enemy_prefab, spawn_pos, Quaternion.identity);
+
+        var enemy = Instantiate(enemy_prefab, spawn_pos, Quaternion.identity);
+        enemy.GetComponent<Enemy>().manager = this;
+        enemies.Add(enemy.GetComponent<Enemy>());
     }
 }
