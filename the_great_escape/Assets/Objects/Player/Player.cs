@@ -5,8 +5,9 @@ public class Player : MonoBehaviour
 {
     public Rigidbody2D rb;
     public GameObject projectile;
-    public uint coins;
+    public uint ammo;
     const float MOVE_VELOCITY = 5.0f;
+    const uint AMMO_PER_UNIT = 3;
 
     private Vector2 target_velocity;
     private Vector2 shoot_target;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         target_velocity = Vector2.zero;
-        coins = 0;
+        ammo = 0;
     }
 
     // Update is called once per frame
@@ -43,7 +44,7 @@ public class Player : MonoBehaviour
     public void OnShoot(InputAction.CallbackContext context)
     {
         // Debug.Log(context.started);
-        if (context.started)
+        if (context.started && ammo > 0)
         {
             Debug.Log("shoot");
 
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour
             Vector2 dir_normalized = direction.normalized;
 
             var spawned_proj = Instantiate(projectile, transform.position + new Vector3(dir_normalized.x, dir_normalized.y), Quaternion.identity);
+            ammo--;
 
             spawned_proj.GetComponent<Rigidbody2D>().linearVelocity = dir_normalized * 15.0f;
         }
@@ -74,7 +76,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.layer == 7 /*Collectable*/)
         {
             Destroy(collision.gameObject);
-            coins++;
+            ammo += AMMO_PER_UNIT;
         }
     }
 }

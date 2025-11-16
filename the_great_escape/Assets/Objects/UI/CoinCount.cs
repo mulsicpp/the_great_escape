@@ -13,6 +13,6 @@ public class CoinCount : MonoBehaviour
     }
     void Update()
     {
-        coinCountText.text = "Coins:\n" + player.coins.ToString("0");
+        coinCountText.text = "Coins:\n" + player.ammo.ToString("0");
     }
 }
