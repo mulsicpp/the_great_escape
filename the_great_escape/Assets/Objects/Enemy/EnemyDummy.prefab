@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2271347090735317861}
   - component: {fileID: 7639400723600515457}
   - component: {fileID: 6631702861946802741}
+  - component: {fileID: -2609807679830226267}
   m_Layer: 6
   m_Name: EnemyDummy
   m_TagString: Untagged
@@ -169,3 +170,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   manager: {fileID: 0}
+--- !u!114 &-2609807679830226267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760312543931794902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 237c941bd99f51f479e9eb1b8d505df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  m_speed: 4
+  m_rotationSpeed: 3
+  m_StopDistance: 0
+  m_DetectionDistance: 1
+  m_SeperationWeight: 2
+  m_AllignmentWeight: 1
+  m_CohesionWeight: 1

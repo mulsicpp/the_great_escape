@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject enemy_prefab;
+    public GameObject enemy_prefab; 
     public float spawn_duration;
 
     public float min_radius;
