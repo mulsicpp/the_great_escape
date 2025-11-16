@@ -186,6 +186,6 @@ MonoBehaviour:
   m_rotationSpeed: 3
   m_StopDistance: 0
   m_DetectionDistance: 1
-  m_SeperationWeight: 2
+  m_SeperationWeight: 1
   m_AllignmentWeight: 1
   m_CohesionWeight: 1

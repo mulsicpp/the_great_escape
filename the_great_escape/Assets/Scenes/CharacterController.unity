@@ -303,8 +303,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
   enemy_prefab: {fileID: 7760312543931794902, guid: 5640165c9c9e0484b9cf9a5050ed4baf, type: 3}
   spawn_duration: 1
-  min_radius: 2
-  max_radius: 4
+  min_radius: 4
+  max_radius: 6
   bias_front: 1
   enemies: []
 --- !u!1 &460163159
