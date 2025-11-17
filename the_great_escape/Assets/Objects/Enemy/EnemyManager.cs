@@ -6,6 +6,7 @@ public class EnemyManager : MonoBehaviour
 {
     public GameObject enemy_prefab; 
     public float spawn_duration;
+    private float current_spawn_duration;
 
     public float min_radius;
     public float max_radius;
@@ -18,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     private Vector3 maxPos;
 
     public List<Enemy> enemies;
+    private uint enemies_spawned;
     private float time_since_spawn;
     private Player player;
 
@@ -30,6 +32,9 @@ public class EnemyManager : MonoBehaviour
         player = FindFirstObjectByType<Player>();
         minPos = bottomLeftCorner.transform.position;
         maxPos = topRightCorner.transform.position;
+        enemies_spawned = 0;
+
+        current_spawn_duration = calc_spawn_duration();
     }
 
     // Update is called once per frame
@@ -37,11 +42,18 @@ public class EnemyManager : MonoBehaviour
     {
         time_since_spawn += Time.deltaTime;
 
-        if(time_since_spawn > spawn_duration)
+        if(time_since_spawn > current_spawn_duration)
         {
-            time_since_spawn -= spawn_duration;
+            time_since_spawn = 0;
             spawn_enemy();
+            enemies_spawned++;
+            current_spawn_duration = calc_spawn_duration();
         }
+    }
+
+    private float calc_spawn_duration()
+    {
+        return spawn_duration / Mathf.Sqrt(enemies_spawned + 1);
     }
 
     private bool is_position_valid(Vector3 pos)

@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = rb.GetComponent<SpriteRenderer>();
         target_velocity = Vector2.zero;
-        ammo = 0;
+        ammo = 10;
         health = MAX_HEALTH;
     }
 
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
         var color = sprite.color;
         color.a = Mathf.Cos(Mathf.Log(invisible_frames_time + 1.0f, 2) * 30.0f) * 0.5f + 0.5f;
         sprite.color = color;
+        sprite.flipX = rb.linearVelocityX < 0.0f;
     }
 
     public void OnMove(InputAction.CallbackContext context)

@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
         if (collision.gameObject.layer == 6 /*Enemy*/)
         {
             Destroy( collision.gameObject );
-            Destroy( gameObject );
         }
+        Destroy(gameObject);
     }
 }
