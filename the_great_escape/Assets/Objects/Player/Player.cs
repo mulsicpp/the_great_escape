@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
 
             var spawned_proj = Instantiate(projectile, transform.position + new Vector3(dir_normalized.x, dir_normalized.y), Quaternion.identity);
             ammo--;
+            spawned_proj.transform.rotation = Quaternion.FromToRotation(-Vector3.up, new Vector3(dir_normalized.x, dir_normalized.y, 0.0f));
 
             spawned_proj.GetComponent<Rigidbody2D>().linearVelocity = dir_normalized * 15.0f;
         }
