@@ -11,6 +11,12 @@ public class EnemyManager : MonoBehaviour
     public float max_radius;
     public float bias_front;
 
+    public GameObject bottomLeftCorner;
+    public GameObject topRightCorner;
+
+    private Vector3 minPos;
+    private Vector3 maxPos;
+
     public List<Enemy> enemies;
     private float time_since_spawn;
     private Player player;
@@ -22,6 +28,8 @@ public class EnemyManager : MonoBehaviour
         enemies = new List<Enemy>();
         time_since_spawn = 0.0f;
         player = FindFirstObjectByType<Player>();
+        minPos = bottomLeftCorner.transform.position;
+        maxPos = topRightCorner.transform.position;
     }
 
     // Update is called once per frame
@@ -34,6 +42,13 @@ public class EnemyManager : MonoBehaviour
             time_since_spawn -= spawn_duration;
             spawn_enemy();
         }
+    }
+
+    private bool is_position_valid(Vector3 pos)
+    {
+        if (pos.x < minPos.x || pos.x > maxPos.x || pos.y < minPos.y || pos.y > maxPos.y)
+            return false;
+        return true;
     }
 
     private void spawn_enemy()
@@ -55,9 +70,12 @@ public class EnemyManager : MonoBehaviour
 
         var spawn_pos =  player.transform.position + new Vector3(relative_pos.x + spawn_offset.x, relative_pos.y + spawn_offset.y, 0.0f);
 
-
-        var enemy = Instantiate(enemy_prefab, spawn_pos, Quaternion.identity);
-        enemy.GetComponent<Enemy>().manager = this;
-        enemies.Add(enemy.GetComponent<Enemy>());
+        if (is_position_valid(spawn_pos))
+        {
+            var enemy = Instantiate(enemy_prefab, spawn_pos, Quaternion.identity);
+            enemy.GetComponent<Enemy>().manager = this;
+            enemies.Add(enemy.GetComponent<Enemy>());
+        }
+        
     }
 }
