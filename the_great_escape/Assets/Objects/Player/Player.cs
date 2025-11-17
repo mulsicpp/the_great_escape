@@ -102,19 +102,19 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == 6 /*Enemy*/)
         {
             Destroy(collision.gameObject);
-
-            if(health > 0 && invisible_frames_time <= 0.0f)
+            if (invisible_frames_time <= 0.0f)
             {
-                health--;
-                invisible_frames_time = 2.0f;
+                if (health > 1)
+                {
+                    health--;
+                    invisible_frames_time = 2.0f;
+                }
+                else
+                {
+                    SceneManager.LoadScene("DeathScreen");
+                    return;
+                }
             }
-            else
-            {
-                SceneManager.LoadScene("DeathScreen");
-                return;
-            }
-
-            invisible_frames_time = 2.0f;
         }
     }
 }
