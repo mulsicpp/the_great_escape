@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -106,8 +107,9 @@ public class Player : MonoBehaviour
                 health--;
                 invisible_frames_time = 2.0f;
             }
-            else {
-                // TODO game over
+            else
+            {
+                SceneManager.LoadScene("DeathScreen");
                 return;
             }
 
