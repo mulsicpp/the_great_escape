@@ -6539,7 +6539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
   enemy_prefab: {fileID: 7760312543931794902, guid: 5640165c9c9e0484b9cf9a5050ed4baf, type: 3}
-  spawn_duration: 1
+  spawn_duration: 4
   min_radius: 4
   max_radius: 6
   bias_front: 1
@@ -44858,11 +44858,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1035963763 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6465228822817177647, guid: 2d41b36fd7e3d0149bedb49d19089a47, type: 3}
-  m_PrefabInstance: {fileID: 1328868212}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1244982590
 GameObject:
   m_ObjectHideFlags: 0
@@ -45035,6 +45030,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d41b36fd7e3d0149bedb49d19089a47, type: 3}
+--- !u!114 &1328868213 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 321063356038102188, guid: 2d41b36fd7e3d0149bedb49d19089a47, type: 3}
+  m_PrefabInstance: {fileID: 1328868212}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba72d7c63f9e374e9ae7ec62667aab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
 --- !u!1 &1437887684
 GameObject:
   m_ObjectHideFlags: 0
@@ -48339,7 +48345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AmmoSpawner
   ammo_prefab: {fileID: 7478593688540644683, guid: f3b4343977ddf7e4c9bb7d0af9748b95, type: 3}
-  spawn_duration: 1
+  spawn_duration: 3
   min_radius: 3
   max_radius: 5
   bias_front: 0
@@ -54813,7 +54819,7 @@ PrefabInstance:
     - target: {fileID: 676322112825197429, guid: 46747779e2798f645a9b1201a39863db, type: 3}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1035963763}
+      objectReference: {fileID: 1328868213}
     - target: {fileID: 6009907411198105398, guid: 46747779e2798f645a9b1201a39863db, type: 3}
       propertyPath: m_Name
       value: Main Camera
