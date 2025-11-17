@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 31ac56082bb6689488f600b90b27d4ed
+guid: 73ec8e4419255cf4d81d678783aabbc5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4414513990352540403
-    second: Button_Small_01_0
+      213: -1064359600366595995
+    second: Menu Buttons 43_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,12 +100,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Button_Small_01_0
+      name: Menu Buttons 43_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 6
         y: 0
-        width: 16
+        width: 69
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3f294fac511834d30800000000000000
-      internalID: 4414513990352540403
+      spriteID: 5605fda2592aa31f0800000000000000
+      internalID: -1064359600366595995
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Button_Small_01_0: 4414513990352540403
+      Menu Buttons 43_0: -1064359600366595995
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
