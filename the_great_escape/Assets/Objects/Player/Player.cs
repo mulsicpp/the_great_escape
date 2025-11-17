@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public GameObject projectile;
     public uint ammo;
     public uint health;
+    public GameObject Heart1;
+    public GameObject Heart2;
 
     const float MOVE_VELOCITY = 5.0f;
     const uint AMMO_PER_UNIT = 3;
@@ -106,6 +108,14 @@ public class Player : MonoBehaviour
             {
                 if (health > 1)
                 {
+                    if (health == 2)
+                    {
+                        Heart1.SetActive(false);
+                    }
+                    else
+                    {
+                        Heart2.SetActive(false);
+                    }
                     health--;
                     invisible_frames_time = 2.0f;
                 }
