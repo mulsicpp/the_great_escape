@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-struct PlayerTransform
+public struct PlayerTransform
 {
     public Vector3Int grid_position;
     public Vector3Int forward;
@@ -11,11 +11,25 @@ struct PlayerTransform
     {
         return new Vector3Int(up.y * forward.z - up.z * forward.y, up.z * forward.x - up.x * forward.z, up.x * forward.y - up.y * forward.x);
     }
+
+    public Vector3 Position() { return new Vector3(grid_position.x, grid_position.y, grid_position.z); }
+    public Matrix4x4 Rotation()
+    {
+        var right = calc_right();
+
+        var right_vec = new Vector4(right.x, right.y, right.z);
+        var up_vec = new Vector4(up.x, up.y, up.z);
+        var forward_vec = new Vector4(forward.x, forward.y, forward.z);
+
+        return new Matrix4x4(right_vec, up_vec, forward_vec, new Vector4(0, 0, 0, 1));
+    }
 }
 
 public class Player : MonoBehaviour
 {
-    private PlayerTransform player_transform;
+    public PlayerTransform player_transform;
+
+    TransformInterpolation interpolation;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,20 +37,24 @@ public class Player : MonoBehaviour
         player_transform = new PlayerTransform
         {
             grid_position = Vector3Int.zero,
-            forward = Vector3Int.up,
-            up = Vector3Int.forward
+            forward = Vector3Int.forward,
+            up = Vector3Int.up
         };
 
-        apply_player_transform(player_transform);
+        interpolation = null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        apply_player_transform(player_transform);
+        if(interpolation != null)
+        {
+            interpolation.Step(this, Time.deltaTime);
+        }
+        ApplyPlayerTransform(player_transform);
     }
 
-    void apply_player_transform(PlayerTransform player_transform)
+    void ApplyPlayerTransform(PlayerTransform player_transform)
     {
         var right = player_transform.calc_right();
 
