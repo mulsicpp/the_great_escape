@@ -4,6 +4,8 @@ public abstract class TransformInterpolation
 {
     private float time = 0.0f;
 
+    public float Time() {  return time; }
+
     public virtual Vector3 InterpolatedPosition(PlayerTransform player_transform, float time)
     {
         return Vector3.zero;

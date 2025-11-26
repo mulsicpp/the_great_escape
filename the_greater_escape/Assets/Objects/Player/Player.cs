@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public PlayerTransform player_transform;
 
     TransformInterpolation interpolation;
+    TransformInterpolation buffered_interpolation;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,49 +48,65 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(interpolation != null)
+        if (interpolation != null)
         {
-            if (interpolation.Step(this, Time.deltaTime * 3.0f)) interpolation = null;
+            if (interpolation.Step(this, Time.deltaTime * 3.0f))
+            {
+                interpolation = buffered_interpolation;
+                buffered_interpolation = null;
+            }
+        }
+    }
+
+    void SetInterpolation(TransformInterpolation new_interpolation)
+    {
+        if (interpolation == null)
+        {
+            interpolation = new_interpolation;
+        }
+        else if (interpolation.Time() > 0.6f)
+        {
+            buffered_interpolation = new_interpolation;
         }
     }
 
     public void OnTurnLeft(InputAction.CallbackContext context)
     {
-        if (context.started && interpolation == null)
+        if (context.started)
         {
-            interpolation = new RotateLeftInterpolation();
+            SetInterpolation(new RotateLeftInterpolation());
         }
     }
 
     public void OnTurnRight(InputAction.CallbackContext context)
     {
-        if (context.started && interpolation == null)
+        if (context.started)
         {
-            interpolation = new RotateRightInterpolation();
+            SetInterpolation(new RotateRightInterpolation());
         }
     }
 
     public void OnTurnDown(InputAction.CallbackContext context)
     {
-        if (context.started && interpolation == null)
+        if (context.started)
         {
-            interpolation = new RotateDownInterpolation();
+            SetInterpolation(new RotateDownInterpolation());
         }
     }
 
     public void OnTurnUp(InputAction.CallbackContext context)
     {
-        if (context.started && interpolation == null)
+        if (context.started)
         {
-            interpolation = new RotateUpInterpolation();
+            SetInterpolation(new RotateUpInterpolation());
         }
     }
 
     public void OnMoveForward(InputAction.CallbackContext context)
     {
-        if (context.started && interpolation == null)
+        if (context.started)
         {
-            interpolation = new MoveForwardInterpolation();
+            SetInterpolation(new MoveForwardInterpolation());
         }
     }
 }
