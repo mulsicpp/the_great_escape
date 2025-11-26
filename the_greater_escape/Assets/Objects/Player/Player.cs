@@ -49,66 +49,47 @@ public class Player : MonoBehaviour
     {
         if(interpolation != null)
         {
-            interpolation.Step(this, Time.deltaTime);
+            if (interpolation.Step(this, Time.deltaTime * 3.0f)) interpolation = null;
         }
-        ApplyPlayerTransform(player_transform);
-    }
-
-    void ApplyPlayerTransform(PlayerTransform player_transform)
-    {
-        var right = player_transform.calc_right();
-
-        var right_vec = new Vector4(right.x, right.y, right.z);
-        var up_vec = new Vector4(player_transform.up.x, player_transform.up.y, player_transform.up.z);
-        var forward_vec = new Vector4(player_transform.forward.x, player_transform.forward.y, player_transform.forward.z);
-
-        var rotation_mat = new Matrix4x4(right_vec, up_vec, forward_vec, new Vector4(0, 0, 0, 1));
-
-        transform.localRotation = rotation_mat.rotation;
-        transform.localPosition = new Vector3(player_transform.grid_position.x, player_transform.grid_position.y, player_transform.grid_position.z);
     }
 
     public void OnTurnLeft(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && interpolation == null)
         {
-            player_transform.forward = -player_transform.calc_right();
+            interpolation = new RotateLeftInterpolation();
         }
     }
 
     public void OnTurnRight(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && interpolation == null)
         {
-            player_transform.forward = player_transform.calc_right();
+            interpolation = new RotateRightInterpolation();
         }
     }
 
     public void OnTurnDown(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && interpolation == null)
         {
-            var down = -player_transform.up;
-            player_transform.up = player_transform.forward;
-            player_transform.forward = down;
+            interpolation = new RotateDownInterpolation();
         }
     }
 
     public void OnTurnUp(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && interpolation == null)
         {
-            var backward = -player_transform.forward;
-            player_transform.forward = player_transform.up;
-            player_transform.up = backward;
+            interpolation = new RotateUpInterpolation();
         }
     }
 
     public void OnMoveForward(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && interpolation == null)
         {
-            player_transform.grid_position += player_transform.forward;
+            interpolation = new MoveForwardInterpolation();
         }
     }
 }

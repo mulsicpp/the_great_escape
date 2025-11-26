@@ -4,7 +4,7 @@ public abstract class TransformInterpolation
 {
     private float time = 0.0f;
 
-    public virtual Vector3 InterpolatedPosition(float time)
+    public virtual Vector3 InterpolatedPosition(PlayerTransform player_transform, float time)
     {
         return Vector3.zero;
     }
@@ -28,7 +28,7 @@ public abstract class TransformInterpolation
             finished = true;
         }
         var rotation = player.player_transform.Rotation() * InterpolatedRotation(time);
-        var position = player.player_transform.Position() + InterpolatedPosition(time);
+        var position = player.player_transform.Position() + InterpolatedPosition(player.player_transform, time);
 
         player.transform.localRotation = rotation.rotation;
         player.transform.localPosition = position;
@@ -43,6 +43,11 @@ public class RotateLeftInterpolation : TransformInterpolation
     {
         player.player_transform.forward = -player.player_transform.calc_right();
     }
+
+    public override Matrix4x4 InterpolatedRotation(float time)
+    {
+        return Matrix4x4.Rotate(Quaternion.AngleAxis(-time * 90, Vector3.up));
+    }
 }
 
 public class RotateRightInterpolation : TransformInterpolation
@@ -50,6 +55,11 @@ public class RotateRightInterpolation : TransformInterpolation
     public override void Finish(Player player)
     {
         player.player_transform.forward = player.player_transform.calc_right();
+    }
+
+    public override Matrix4x4 InterpolatedRotation(float time)
+    {
+        return Matrix4x4.Rotate(Quaternion.AngleAxis(time * 90, Vector3.up));
     }
 }
 
@@ -61,6 +71,11 @@ public class RotateDownInterpolation : TransformInterpolation
         player.player_transform.up = player.player_transform.forward;
         player.player_transform.forward = down;
     }
+
+    public override Matrix4x4 InterpolatedRotation(float time)
+    {
+        return Matrix4x4.Rotate(Quaternion.AngleAxis(time * 90, Vector3.right));
+    }
 }
 
 public class RotateUpInterpolation : TransformInterpolation
@@ -71,6 +86,11 @@ public class RotateUpInterpolation : TransformInterpolation
         player.player_transform.forward = player.player_transform.up;
         player.player_transform.up = backward;
     }
+
+    public override Matrix4x4 InterpolatedRotation(float time)
+    {
+        return Matrix4x4.Rotate(Quaternion.AngleAxis(-time * 90, Vector3.right));
+    }
 }
 
 public class MoveForwardInterpolation : TransformInterpolation
@@ -78,6 +98,11 @@ public class MoveForwardInterpolation : TransformInterpolation
     public override void Finish(Player player)
     {
         player.player_transform.grid_position += player.player_transform.forward;
+    }
+
+    public override Vector3 InterpolatedPosition(PlayerTransform player_transform, float time)
+    {
+        return (Vector3)player_transform.forward * time;
     }
 }
 
