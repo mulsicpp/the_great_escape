@@ -2,10 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+using Object = UnityEngine.Object;
 
 public class MazeManager : MonoBehaviour
 {
     public Maze maze;
+
+    [SerializeField] public GameObject wallsParent;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,6 +34,7 @@ public class MazeManager : MonoBehaviour
             scale = Vector3.Scale(scale, scale);
             scale = (new Vector3(1, 1, 1) - scale) + (scale * 0.1f);
             wall.transform.localScale = scale;
+            wall.transform.parent = wallsParent.transform;
         }
 
         

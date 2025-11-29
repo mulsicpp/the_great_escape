@@ -95,13 +95,21 @@ public class Maze : MonoBehaviour
     {
         for (var index = wallList.Count - 1; index >= 0; index--)
         {
-            var t = wallList[index];
-            var t1 = t.Item1;
-            if (!cellSets[(int) t1.x, (int) t1.y, (int) t1.z].Contains(t.Item2))
+            Tuple<Vector3, Vector3> t = wallList[index];
+            Vector3 t1 = t.Item1;
+            Vector3 t2 = t.Item2;
+            if (!cellSets[(int) t1.x, (int) t1.y, (int) t1.z].Equals(cellSets[(int) t2.x, (int) t2.y, (int) t2.z]))
             {
-                var t2 = t.Item2;
                 cellSets[(int) t1.x, (int) t1.y, (int) t1.z].UnionWith(cellSets[(int) t2.x, (int) t2.y, (int) t2.z]);
-                cellSets[(int) t2.x, (int) t2.y, (int) t2.z].UnionWith(cellSets[(int) t1.x, (int) t1.y, (int) t1.z]);
+
+                foreach (Vector3 v in cellSets[(int) t1.x, (int) t1.y, (int) t1.z])
+                {
+                    if (v != t1)
+                    {
+                        cellSets[(int) v.x, (int) v.y, (int) v.z] = cellSets[(int) t1.x, (int) t1.y, (int) t1.z];
+                    }
+                }
+                
                 wallList.Remove(t);
             }
         }

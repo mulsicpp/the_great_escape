@@ -413,7 +413,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2971379617973556333, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1687292813}
+      addedObject: {fileID: 1687292820}
   m_SourcePrefab: {fileID: 100100000, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
 --- !u!1 &1163456264
 GameObject:
@@ -654,12 +654,43 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &1662618007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1662618008}
+  m_Layer: 0
+  m_Name: Walls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1662618008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662618007}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1687292806 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2971379617973556333, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
   m_PrefabInstance: {fileID: 717950688}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1687292813
+--- !u!114 &1687292820
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -671,6 +702,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af89a47b9385d3d43897f0ca455e083b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MazeManager
+  maze: {fileID: 0}
+  wallsParent: {fileID: 1662618007}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -680,3 +713,4 @@ SceneRoots:
   - {fileID: 544421206}
   - {fileID: 23451004}
   - {fileID: 1163456268}
+  - {fileID: 1662618008}
