@@ -356,6 +356,18 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3470007467164514599, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470007467164514599, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470007467164514599, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470007467164514599, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -398,7 +410,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2971379617973556333, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1687292813}
   m_SourcePrefab: {fileID: 100100000, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
 --- !u!1 &1163456264
 GameObject:
@@ -639,6 +654,23 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &1687292806 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2971379617973556333, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+  m_PrefabInstance: {fileID: 717950688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1687292813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687292806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af89a47b9385d3d43897f0ca455e083b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MazeManager
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
