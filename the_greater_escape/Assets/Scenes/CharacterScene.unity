@@ -351,21 +351,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 89147002079267536, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2311831266572160119, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2971379617973556333, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3470007467164514599, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3470007467164514599, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3470007467164514599, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3470007467164514599, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
       propertyPath: m_LocalPosition.x
@@ -405,6 +413,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3470007467164514599, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116414963054320688, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: far clip plane
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116414963054320688, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7952833518863600163, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8266527593041774482, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8559090054344410138, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8559090054344410138, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -702,7 +734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af89a47b9385d3d43897f0ca455e083b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MazeManager
-  maze: {fileID: 0}
   wallsParent: {fileID: 1662618007}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

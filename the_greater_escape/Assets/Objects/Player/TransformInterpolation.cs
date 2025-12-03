@@ -4,7 +4,9 @@ public abstract class TransformInterpolation
 {
     private float time = 0.0f;
 
-    public float Time() {  return time; }
+    public float Time() { return time; }
+
+    public virtual float Factor() { return 1.0f; }
 
     public virtual Vector3 InterpolatedPosition(PlayerTransform player_transform, float time)
     {
@@ -20,7 +22,7 @@ public abstract class TransformInterpolation
 
     public bool Step(Player player, float deltaTime)
     {
-        time += deltaTime;
+        time += deltaTime * Factor();
 
         bool finished = false;
         if (time >= 1.0f)
@@ -110,7 +112,13 @@ public class MoveForwardInterpolation : TransformInterpolation
 
 public class BumpWallInterpolation : TransformInterpolation
 {
-    public override void Finish(Player player)
+
+    public override float Factor() { return 2.0f; }
+
+    public override void Finish(Player player) { }
+
+    public override Vector3 InterpolatedPosition(PlayerTransform player_transform, float time)
     {
+        return (Vector3)player_transform.forward * Mathf.Min(time, 1.0f - time) * 0.5f;
     }
 }

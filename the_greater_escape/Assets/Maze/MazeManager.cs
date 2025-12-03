@@ -7,12 +7,14 @@ using Object = UnityEngine.Object;
 public class MazeManager : MonoBehaviour
 {
     public Maze maze;
+    public MazeGrid grid;
 
     [SerializeField] public GameObject wallsParent;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         maze = new Maze(5, 1);
+        grid = new MazeGrid(maze);
         LoadMaze(maze, 5);
     }
 
@@ -32,12 +34,9 @@ public class MazeManager : MonoBehaviour
             wall.transform.position = pos;
             Vector3 scale = (cells.Item2 - cells.Item1);
             scale = Vector3.Scale(scale, scale);
-            scale = (new Vector3(1, 1, 1) - scale) + (scale * 0.1f);
+            scale = new Vector3(1.1f, 1.1f, 1.1f) - scale;
             wall.transform.localScale = scale;
             wall.transform.parent = wallsParent.transform;
         }
-
-        
-        
     }
 }

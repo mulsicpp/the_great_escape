@@ -1,3 +1,4 @@
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,7 +31,8 @@ public class Player : MonoBehaviour
     public PlayerTransform player_transform;
 
     TransformInterpolation interpolation;
-    TransformInterpolation buffered_interpolation;
+
+    public MazeGrid maze_grid;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,6 +45,8 @@ public class Player : MonoBehaviour
         };
 
         interpolation = null;
+
+        maze_grid = GetComponent<MazeManager>().grid;
     }
 
     // Update is called once per frame
@@ -52,9 +56,13 @@ public class Player : MonoBehaviour
         {
             if (interpolation.Step(this, Time.deltaTime * 3.0f))
             {
-                interpolation = buffered_interpolation;
-                buffered_interpolation = null;
+                interpolation = null;
             }
+        }
+
+        if(!maze_grid.Contains(player_transform.grid_position)) {
+            // TODO win game
+            Debug.Log("Game won!");
         }
     }
 
@@ -63,10 +71,6 @@ public class Player : MonoBehaviour
         if (interpolation == null)
         {
             interpolation = new_interpolation;
-        }
-        else if (interpolation.Time() > 0.6f)
-        {
-            buffered_interpolation = new_interpolation;
         }
     }
 
@@ -106,7 +110,15 @@ public class Player : MonoBehaviour
     {
         if (context.started)
         {
-            SetInterpolation(new MoveForwardInterpolation());
+            var target_position = player_transform.grid_position + player_transform.forward;
+            if ((maze_grid.Contains(player_transform.grid_position) || maze_grid.Contains(target_position)) && maze_grid.Between(player_transform.grid_position, target_position))
+            {
+                SetInterpolation(new BumpWallInterpolation());
+            }
+            else
+            {
+                SetInterpolation(new MoveForwardInterpolation());
+            }
         }
     }
 }
