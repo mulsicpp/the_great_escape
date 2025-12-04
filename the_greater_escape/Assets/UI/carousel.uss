@@ -1,0 +1,42 @@
+.carousel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-image-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+}
+
+/* LEFT BUTTON — transparent overlay */
+.carousel-button-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 15%;       /* CHANGE SIZE HERE */
+    height: 100%;
+    background-color: rgba(0,0,0,0);   /* fully transparent */
+    border: none;
+    /*opacity: 0;        /* invisible but clickable */
+}
+
+/* RIGHT BUTTON — transparent overlay */
+.carousel-button-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 15%;       /* CHANGE SIZE HERE */
+    height: 100%;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    /*opacity: 0;        /* invisible but clickable */
+
+}

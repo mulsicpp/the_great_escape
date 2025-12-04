@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="root" style="flex-grow: 0; width: 100%; height: 100%; flex-shrink: 0; justify-content: center; flex-direction: column; align-items: center;">
+        <ui:Button text="Resume" name="Play" style="width: 20%; height: 10%;" />
+        <ui:Button text="main-menu" name="main-menu" />
+        <ui:Button text="Tutorial" name="Tutorial" />
+        <ui:Button text="Restart" name="restart" />
+        <ui:Slider label="Volume" value="42" high-value="100" name="Volume" style="width: 256px;" />
+    </ui:VisualElement>
+</ui:UXML>
