@@ -12,6 +12,9 @@ public class MazeManager : MonoBehaviour
     [SerializeField] public GameObject wallsParent;
     [SerializeField] public int dim;
     [SerializeField] public int seed;
+    [SerializeField] public Material wallMaterial;
+    [SerializeField] public Material wallMaterial2;
+    [SerializeField] public Material wallMaterial3;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -32,6 +35,7 @@ public class MazeManager : MonoBehaviour
         foreach (var cells in maze.wallList)
         {
             var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            
             Vector3 pos = (cells.Item1 + cells.Item2) / 2;
             wall.transform.position = pos;
             Vector3 scale = (cells.Item2 - cells.Item1);
@@ -47,6 +51,12 @@ public class MazeManager : MonoBehaviour
             scale = Vector3.Scale(scale, scale);
             scale = new Vector3(baseScale, baseScale, baseScale) - scale;
             wall.transform.localScale = scale;
+            if(wall.transform.localScale.y < 1f)
+                wall.GetComponent<Renderer>().material = wallMaterial;
+            else if (wall.transform.localScale.x < 1f)
+                wall.GetComponent<Renderer>().material = wallMaterial2;
+            else
+                wall.GetComponent<Renderer>().material = wallMaterial3;
             wall.transform.parent = wallsParent.transform;
         }
     }
