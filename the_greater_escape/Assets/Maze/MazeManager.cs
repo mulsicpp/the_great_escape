@@ -10,12 +10,14 @@ public class MazeManager : MonoBehaviour
     public MazeGrid grid;
 
     [SerializeField] public GameObject wallsParent;
+    [SerializeField] public int dim;
+    [SerializeField] public int seed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        maze = new Maze(5, 1);
+        maze = new Maze(dim, seed);
         grid = new MazeGrid(maze);
-        LoadMaze(maze, 5);
+        LoadMaze(maze, dim);
     }
 
     // Update is called once per frame
