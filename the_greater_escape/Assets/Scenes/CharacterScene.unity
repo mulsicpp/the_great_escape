@@ -416,6 +416,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4116414963054320688, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: field of view
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116414963054320688, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
       propertyPath: far clip plane
       value: 100
       objectReference: {fileID: 0}
@@ -735,6 +739,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MazeManager
   wallsParent: {fileID: 1662618007}
+  dim: 3
+  seed: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

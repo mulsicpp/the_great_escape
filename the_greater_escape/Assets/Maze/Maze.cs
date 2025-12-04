@@ -135,8 +135,9 @@ public class Maze
                 outerwallList.Add(new Tuple<Vector3, Vector3>(new Vector3(row, col, dim - 1), new Vector3(row, col, dim)));
             }
         }
+        
 
-        Tuple<Vector3, Vector3> exitWall = outerwallList[seed.Next(outerwallList.Count - 1)];
+        Tuple<Vector3, Vector3> exitWall = new Tuple<Vector3, Vector3>(new Vector3(dim - 1, dim - 1, dim - 1), new Vector3(dim - 1, dim - 1, dim));
         exit = exitWall.Item1 + (exitWall.Item2 - exitWall.Item1);
         outerwallList.Remove(exitWall);
         wallList.AddRange(outerwallList);
