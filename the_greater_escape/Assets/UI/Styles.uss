@@ -1,0 +1,18 @@
+:root {
+}
+
+.my-button {
+    color: white;
+}
+
+.my-button:hover {
+    color: red;
+}
+
+/* Reset (optional) */
+TextField .unity-label,
+Slider .unity-label,
+SliderInt .unity-label {
+    color: white;
+}
+
