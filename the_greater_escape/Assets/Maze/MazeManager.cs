@@ -15,6 +15,9 @@ public class MazeManager : MonoBehaviour
     [SerializeField] public Material wallMaterial;
     [SerializeField] public Material wallMaterial2;
     [SerializeField] public Material wallMaterial3;
+
+    public GameObject exitLightPrefab;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -43,10 +46,10 @@ public class MazeManager : MonoBehaviour
             var baseScale = 1.1f;
             if(Mathf.Abs(scale.x) > 0.5)
             {
-                baseScale = 1.105f;
+                baseScale = 1.102f;
             } else if (Mathf.Abs(scale.z) > 0.5)
             {
-                baseScale = 1.095f;
+                baseScale = 1.098f;
             }
             scale = Vector3.Scale(scale, scale);
             scale = new Vector3(baseScale, baseScale, baseScale) - scale;
@@ -58,6 +61,8 @@ public class MazeManager : MonoBehaviour
             else
                 wall.GetComponent<Renderer>().material = wallMaterial3;
             wall.transform.parent = wallsParent.transform;
+
         }
+        Instantiate(exitLightPrefab, new Vector3(dim - 1, dim - 1, dim - 0.5f), Quaternion.Euler(180, 0, 0));
     }
 }

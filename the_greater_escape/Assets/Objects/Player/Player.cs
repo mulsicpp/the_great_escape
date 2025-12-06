@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
 
     public MazeGrid maze_grid;
 
+    public GameObject graffiti_prefab;
+    public int graffiti_count;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -46,7 +49,11 @@ public class Player : MonoBehaviour
 
         interpolation = null;
 
-        maze_grid = GetComponent<MazeManager>().grid;
+        var maze_manager = GetComponent<MazeManager>();
+
+        maze_grid = maze_manager.grid;
+
+        graffiti_count = (maze_manager.dim * maze_manager.dim * maze_manager.dim) / 40 + 1;
     }
 
     // Update is called once per frame
@@ -118,6 +125,19 @@ public class Player : MonoBehaviour
             else
             {
                 SetInterpolation(new MoveForwardInterpolation());
+            }
+        }
+    }
+
+    public void OnPaint(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            var target_position = player_transform.grid_position + player_transform.forward;
+            if (graffiti_count > 0 && (maze_grid.Contains(player_transform.grid_position) || maze_grid.Contains(target_position)) && maze_grid.Between(player_transform.grid_position, target_position))
+            {
+                Instantiate(graffiti_prefab, transform.position, transform.rotation);
+                graffiti_count--;
             }
         }
     }
