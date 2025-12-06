@@ -359,6 +359,30 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2519614075140283484, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_Color.b
+      value: 0.7311321
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519614075140283484, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9260533
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519614075140283484, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519614075140283484, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_Intensity
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519614075140283484, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_SpotAngle
+      value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519614075140283484, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2971379617973556333, guid: f44cf9e8cb6ad334d81bf4adcb9c2b64, type: 3}
       propertyPath: m_Name
       value: Player
@@ -614,6 +638,9 @@ MonoBehaviour:
   wallsParent: {fileID: 1662618007}
   dim: 3
   seed: 1
+  wallMaterial: {fileID: 2100000, guid: f663bc8568e09b4409f66273a6754176, type: 2}
+  wallMaterial2: {fileID: 2100000, guid: f9ef239750fbb264cb79b46a5c9b960f, type: 2}
+  wallMaterial3: {fileID: 2100000, guid: f560a783246c84d4781e2d8a2722cd82, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

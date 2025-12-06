@@ -40,13 +40,13 @@ public class MazeManager : MonoBehaviour
             wall.transform.position = pos;
             Vector3 scale = (cells.Item2 - cells.Item1);
 
-            var baseScale = 1.0f;
-            if(scale.x < 0.5)
+            var baseScale = 1.1f;
+            if(Mathf.Abs(scale.x) > 0.5)
             {
-                baseScale = 1.001f;
-            } else if (scale.z < 0.5)
+                baseScale = 1.105f;
+            } else if (Mathf.Abs(scale.z) > 0.5)
             {
-                baseScale = 0.999f;
+                baseScale = 1.095f;
             }
             scale = Vector3.Scale(scale, scale);
             scale = new Vector3(baseScale, baseScale, baseScale) - scale;
