@@ -1,5 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/carousel.uss?fileID=7433441132597879392&amp;guid=f63f2bf96ec119541a6bc8ee75f5d4bd&amp;type=3#carousel" />
-    <Carousel name="TutorialCarousel" style="height: 100%; flex-shrink: 0;" />
-    <ui:Button text="Back" name="Back" style="position: absolute;" />
+    <Style src="project://database/Assets/UI/Styles.uss?fileID=7433441132597879392&amp;guid=f33c2f0bd9df8e14ba7a167af97382c8&amp;type=3#Styles" />
+    <Carousel name="TutorialCarousel" style="height: 100%; flex-shrink: 0; background-color: rgb(0, 0, 0);" />
+    <ui:Button text="Back" name="Back" class="my-button" style="position: absolute; background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); -unity-font-definition: url(&quot;project://database/Assets/UI/HelpMe.ttf?fileID=12800000&amp;guid=b7aa06ca69d7d934699c3c632d135f68&amp;type=3#HelpMe&quot;); width: 20%; height: 10%; top: 3%; left: 3%; font-size: 80px;" />
 </ui:UXML>

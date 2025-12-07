@@ -23,8 +23,14 @@
     top: 0;
     width: 15%;       /* CHANGE SIZE HERE */
     height: 100%;
-    background-color: rgba(0,0,0,0);   /* fully transparent */
-    border: none;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    font-size: 80px;
+    color: rgba(255, 255, 255, 1);
+
     /*opacity: 0;        /* invisible but clickable */
 }
 
@@ -35,8 +41,14 @@
     top: 0;
     width: 15%;       /* CHANGE SIZE HERE */
     height: 100%;
-    background-color: rgba(0,0,0,0);
-    border: none;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    font-size: 80px;
+    color: rgba(255, 255, 255, 1);
+
     /*opacity: 0;        /* invisible but clickable */
 
 }
