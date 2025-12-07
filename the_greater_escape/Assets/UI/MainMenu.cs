@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
+using System;
 
 public class MainMenu : MonoBehaviour, IUIScreen
 {
     [SerializeField] private UIDocument menuDocument;
     [SerializeField] private GameObject tutorialDocument;
+    [SerializeField] private MazeManager mazePrefab;
+
 
     private VisualElement root;
 
@@ -16,12 +19,13 @@ public class MainMenu : MonoBehaviour, IUIScreen
     private TextField seed;
 
     private float selectedVolume;
-    private float selectedSize;
+    private int selectedSize;
     private string selectedSeed;
 
     private void Awake()
     {
         root = menuDocument.rootVisualElement;
+
     }
 
     private void OnEnable()
@@ -58,6 +62,12 @@ public class MainMenu : MonoBehaviour, IUIScreen
         selectedVolume = volume.value;
         selectedSize = size.value;
         selectedSeed = seed.value;
+
+
+
+        mazePrefab.seed = (selectedSeed != "" ? Int32.Parse(selectedSeed) : new System.Random().Next());
+        mazePrefab.dim = selectedSize;
+        mazePrefab.gameObject.SetActive(true);
 
         Debug.Log("Play pressed!");
         Debug.Log("Volume: " + selectedVolume);
