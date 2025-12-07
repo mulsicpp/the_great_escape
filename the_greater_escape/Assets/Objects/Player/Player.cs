@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     public Texture[] graffiti_textures;
     public Color[] graffiti_colors;
     public AudioClip[] footsteps;
+    public AudioClip suprise;
     public AudioSource audiosource;
 
     private Shader urp;
@@ -132,6 +133,7 @@ public class Player : MonoBehaviour
     {
         if (context.started)
         {
+            int suprise_chance = Random.Range(0, 10);
             int random_index = Random.Range(0, footsteps.Length);
             float maxVolume = audiosource.volume;
             float randomVolume = Random.Range(0.3f * maxVolume, maxVolume);
@@ -141,6 +143,10 @@ public class Player : MonoBehaviour
             if ((maze_grid.Contains(player_transform.grid_position) || maze_grid.Contains(target_position)) && maze_grid.Between(player_transform.grid_position, target_position))
             {
                 SetInterpolation(new BumpWallInterpolation());
+                if (suprise_chance == 0)
+                {
+                    audiosource.PlayOneShot(suprise, randomVolume);
+                }
             }
             else
             {
