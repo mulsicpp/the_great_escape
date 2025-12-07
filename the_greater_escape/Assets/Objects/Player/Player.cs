@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
             float maxVolume = audiosource.volume;
             float randomVolume = Random.Range(0.3f * maxVolume, maxVolume);
             var clip = footsteps[random_index];
-            audiosource.PlayOneShot(clip, randomVolume);
+            
             var target_position = player_transform.grid_position + player_transform.forward;
             if ((maze_grid.Contains(player_transform.grid_position) || maze_grid.Contains(target_position)) && maze_grid.Between(player_transform.grid_position, target_position))
             {
@@ -144,6 +144,7 @@ public class Player : MonoBehaviour
             }
             else
             {
+                audiosource.PlayOneShot(clip, randomVolume);
                 SetInterpolation(new MoveForwardInterpolation());
             }
         }
