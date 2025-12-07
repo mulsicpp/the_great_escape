@@ -22,6 +22,10 @@ public class MainMenu : MonoBehaviour, IUIScreen
     private int selectedSize;
     private string selectedSeed;
 
+    public AudioSource backgroundMusic;
+    public AudioSource player;
+
+
     private void Awake()
     {
         root = menuDocument.rootVisualElement;
@@ -39,7 +43,16 @@ public class MainMenu : MonoBehaviour, IUIScreen
         seed.RegisterValueChangedCallback(OnSeedChanged);
         play.clicked += OnPlayPressed;
         tutorial.clicked += OnTutorialPressed;
+
+        volume.value = backgroundMusic.volume * 100;
+        volume.RegisterValueChangedCallback(evt =>
+        {
+            backgroundMusic.volume = evt.newValue / 100;
+            player.volume = evt.newValue / 100;
+        });
     }
+
+
 
     private void OnDisable()
     {
