@@ -105,7 +105,6 @@ public class DynamicTextResizer : MonoBehaviour
             percentage = 1f;
 
 
-        Debug.Log(element);
 
         if (element is TextField)
         {

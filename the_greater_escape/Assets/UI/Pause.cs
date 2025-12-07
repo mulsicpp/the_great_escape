@@ -13,8 +13,12 @@ public class Pause : MonoBehaviour, IUIScreen
     private Button mainmenu;
     private Button tutorial;
     private Button restart;
+    private Slider volume;
 
     public MazeManager mazeManager;
+
+    public AudioSource backgroundMusic;
+    public AudioSource player;
 
     private void Awake()
     {
@@ -28,12 +32,22 @@ public class Pause : MonoBehaviour, IUIScreen
         mainmenu = root.Q<Button>("main-menu");
         tutorial = root.Q<Button>("Tutorial");
         restart = root.Q<Button>("restart");
+        volume = root.Q<Slider>("Volume");
 
         resume.clicked += OnResumePressed;
         mainmenu.clicked += OnMainMenuPressed;
         tutorial.clicked += OnTutorialPressed;
         restart.clicked += OnRestartPressed;
+
+        volume.value = backgroundMusic.volume * 100;
+        volume.RegisterValueChangedCallback(evt =>
+        {
+            backgroundMusic.volume = evt.newValue / 100;
+            player.volume = evt.newValue / 100;
+        });
     }
+
+
 
     private void OnDisable()
     {
