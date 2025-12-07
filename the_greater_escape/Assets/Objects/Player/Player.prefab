@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 3741608679709613581}
   - component: {fileID: 5434696625020753085}
   - component: {fileID: 7127356876196769389}
-  - component: {fileID: 1870501222699481856}
   - component: {fileID: -6943180300301998369}
   m_Layer: 0
   m_Name: Player
@@ -316,7 +315,19 @@ MonoBehaviour:
     m_ActionId: 788cd311-888c-4947-b292-6aaec4a1f5fb
     m_ActionName: 'Player/MoveForward[/Mouse/leftButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7127356876196769389}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnPaint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d4ec901e-89ba-4de6-b35d-3458de7e7d61
     m_ActionName: 'Player/Paint[/Keyboard/enter]'
   m_NeverAutoSwitchControlSchemes: 0
@@ -357,34 +368,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebb45ddcdd46c74c858afbc350efa0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  wallParent: {fileID: 0}
   graffiti_prefab: {fileID: 4023361308922338429, guid: 9c9cfdf0b5807174d8fa12b8d2f77815, type: 3}
   graffiti_count: 0
-  graffiti_textures: []
-  graffiti_colors: []
+  graffiti_textures:
+  - {fileID: 2800000, guid: 511cd4e31165b7249ada67d04f2adb1b, type: 3}
+  - {fileID: 2800000, guid: 200492ad3904f9d4399f5f45f4283265, type: 3}
+  - {fileID: 2800000, guid: 3453cbd738a40a94ebb0b2be06067a8f, type: 3}
+  - {fileID: 2800000, guid: 14c0d07425255aa408ddce9141639ddc, type: 3}
+  - {fileID: 2800000, guid: 154d322d861abae45a62046921ce2fbf, type: 3}
+  graffiti_colors:
+  - {r: 1, g: 0.051886797, b: 0.051886797, a: 0}
+  - {r: 1, g: 0.500439, b: 0.05098039, a: 0}
+  - {r: 1, g: 0.99083847, b: 0.05098039, a: 0}
+  - {r: 0.14767766, g: 1, b: 0.05098039, a: 0}
+  - {r: 0.05098039, g: 0.72315794, b: 1, a: 0}
+  - {r: 0.90248704, g: 0.05098039, b: 1, a: 0}
   footsteps:
   - {fileID: 8300000, guid: d8eb69a1e0df76e44ae1784a9e09a861, type: 3}
   - {fileID: 8300000, guid: 10d0f274f43879a4ea94a049241adc59, type: 3}
   - {fileID: 8300000, guid: 337b835d9f4835b4699d3da1712aa414, type: 3}
   audiosource: {fileID: -6943180300301998369}
---- !u!114 &1870501222699481856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2971379617973556333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af89a47b9385d3d43897f0ca455e083b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MazeManager
-  wallsParent: {fileID: 0}
-  dim: 3
-  seed: 1
-  wallMaterial: {fileID: 2100000, guid: f9d0aaccbb1287443af09bde2f3c6b33, type: 2}
-  wallMaterial2: {fileID: 2100000, guid: b40547493aafb944480a5af970b1008d, type: 2}
-  wallMaterial3: {fileID: 2100000, guid: 457908cc7374a27418c3af22686cf39f, type: 2}
-  exitLightPrefab: {fileID: 0}
 --- !u!82 &-6943180300301998369
 AudioSource:
   m_ObjectHideFlags: 0
