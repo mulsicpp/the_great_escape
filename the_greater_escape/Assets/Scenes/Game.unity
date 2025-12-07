@@ -192,6 +192,8 @@ MonoBehaviour:
   mainmenuobject: {fileID: 1428074266}
   tutorialDocument: {fileID: 1686312768}
   mazeManager: {fileID: 1219697156}
+  backgroundMusic: {fileID: 1934010178}
+  player: {fileID: 447706975}
 --- !u!114 &190118849
 MonoBehaviour:
   m_ObjectHideFlags: 0
