@@ -37,6 +37,11 @@ public class Player : MonoBehaviour
     public GameObject graffiti_prefab;
     public int graffiti_count;
 
+    public Texture[] graffiti_textures;
+    public Color[] graffiti_colors;
+
+    private Shader urp;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,7 +58,9 @@ public class Player : MonoBehaviour
 
         maze_grid = maze_manager.grid;
 
-        graffiti_count = (maze_manager.dim * maze_manager.dim * maze_manager.dim) / 40 + 1;
+        graffiti_count = (maze_manager.dim * maze_manager.dim * maze_manager.dim) / 1 + 1;
+
+        urp = Shader.Find("Universal Render Pipeline/Lit");
     }
 
     // Update is called once per frame
@@ -67,7 +74,8 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(!maze_grid.Contains(player_transform.grid_position)) {
+        if (!maze_grid.Contains(player_transform.grid_position))
+        {
             // TODO win game
             Debug.Log("Game won!");
         }
@@ -133,6 +141,31 @@ public class Player : MonoBehaviour
     {
         if (context.started)
         {
+            var mesh_renderer = graffiti_prefab.GetComponentInChildren<MeshRenderer>();
+            var light = graffiti_prefab.GetComponentInChildren<Light>();
+
+            Material material = new Material(urp);
+
+            var texture = graffiti_textures[graffiti_count % graffiti_textures.Length];
+            var color = graffiti_colors[graffiti_count % graffiti_colors.Length];
+
+            material.SetFloat("_AlphaClip", 1.0f);
+            material.SetFloat("_Cutoff", 0.5f);
+            material.EnableKeyword("_ALPHATEST_ON");
+
+            material.SetTexture("_BaseMap", texture);
+            material.SetColor("_BaseColor", Color.black);
+
+            material.SetFloat("_Metallic", 0.0f);
+
+            material.EnableKeyword("_EMISSION");
+            material.SetTexture("_EmissionMap", texture);
+            material.SetColor("_EmissionColor", color);
+
+            light.color = color;
+
+            mesh_renderer.sharedMaterial = material;
+
             var target_position = player_transform.grid_position + player_transform.forward;
             if (graffiti_count > 0 && (maze_grid.Contains(player_transform.grid_position) || maze_grid.Contains(target_position)) && maze_grid.Between(player_transform.grid_position, target_position))
             {
