@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour, IUIScreen
     private Slider volume;
     private SliderInt size;
     private TextField seed;
+    private Label sizelabel;
 
     private float selectedVolume;
     private int selectedSize;
@@ -39,6 +40,7 @@ public class MainMenu : MonoBehaviour, IUIScreen
         volume = root.Q<Slider>("Volume");
         size = root.Q<SliderInt>("Size");
         seed = root.Q<TextField>("Seed");
+        sizelabel = root.Q<Label>("sizenumber");
 
         seed.RegisterValueChangedCallback(OnSeedChanged);
         play.clicked += OnPlayPressed;
@@ -50,6 +52,10 @@ public class MainMenu : MonoBehaviour, IUIScreen
             backgroundMusic.volume = evt.newValue / 100;
             player.volume = evt.newValue / 100;
         });
+        size.RegisterValueChangedCallback(evt =>
+       {
+           sizelabel.text = evt.newValue + "";
+       });
     }
 
 
