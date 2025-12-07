@@ -46,7 +46,9 @@ public class MazeManager : MonoBehaviour
 
     public void LoadMaze(Maze maze, int dim)
     {
-        wallParent = Instantiate(new GameObject("Walls"), transform);
+        wallParent = new GameObject("Walls");
+        wallParent.transform.parent = transform;
+
         foreach (var cells in maze.wallList)
         {
             var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
