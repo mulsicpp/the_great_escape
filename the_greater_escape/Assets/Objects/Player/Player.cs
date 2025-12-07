@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
     public AudioClip[] footsteps;
     public AudioSource audiosource;
 
+    public Pause pause;
+
     private Shader urp;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -184,6 +186,14 @@ public class Player : MonoBehaviour
                 Instantiate(graffiti_prefab, player_transform.Position(), player_transform.Rotation().rotation, wallParent.transform);
                 graffiti_count--;
             }
+        }
+    }
+
+    public void OnEsc(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            pause.Show();
         }
     }
 }

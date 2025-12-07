@@ -14,10 +14,14 @@ public class Pause : MonoBehaviour, IUIScreen
     private Button tutorial;
     private Button restart;
 
+    public MazeManager mazeManager;
+
     private void Awake()
     {
         root = document.rootVisualElement;
         root.style.display = DisplayStyle.None;
+
+        mazeManager = FindFirstObjectByType<MazeManager>();
     }
 
     private void OnEnable()
@@ -44,12 +48,16 @@ public class Pause : MonoBehaviour, IUIScreen
     private void OnResumePressed()
     {
         root.style.display = DisplayStyle.None;
+        Time.timeScale = 1;
     }
 
     private void OnMainMenuPressed()
     {
         mainmenuobject.GetComponent<MainMenu>().Show();
         root.style.display = DisplayStyle.None;
+        Time.timeScale = 1;
+
+        mazeManager.gameObject.SetActive(false);
     }
 
     private void OnTutorialPressed()
@@ -63,10 +71,18 @@ public class Pause : MonoBehaviour, IUIScreen
     {
         // Hide pause UI
         root.style.display = DisplayStyle.None;
+        Time.timeScale = 1;
+
+        mazeManager.gameObject.SetActive(false);
+
+        mazeManager.seed = new System.Random().Next();
+
+        mazeManager.gameObject.SetActive(true);
     }
 
     public void Show()
     {
+        Time.timeScale = 0;
         root.style.display = DisplayStyle.Flex;
     }
 }
