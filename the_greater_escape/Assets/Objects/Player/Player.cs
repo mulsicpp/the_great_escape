@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     public AudioSource audiosource;
 
     public Pause pause;
+    public Finish finish;
 
     private Shader urp;
 
@@ -86,14 +87,13 @@ public class Player : MonoBehaviour
 
         if (!maze_grid.Contains(player_transform.grid_position))
         {
-            // TODO win game
-            Debug.Log("Game won!");
+            finish.Show();
         }
     }
 
     void SetInterpolation(TransformInterpolation new_interpolation)
     {
-        if (interpolation == null)
+        if (interpolation == null && Time.timeScale > 0.5f)
         {
             interpolation = new_interpolation;
         }
@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
 
     public void OnPaint(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && Time.timeScale > 0.5)
         {
             var mesh_renderer = graffiti_prefab.GetComponentInChildren<MeshRenderer>();
             var light = graffiti_prefab.GetComponentInChildren<Light>();

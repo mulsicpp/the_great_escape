@@ -20,8 +20,6 @@ public class Pause : MonoBehaviour, IUIScreen
     {
         root = document.rootVisualElement;
         root.style.display = DisplayStyle.None;
-
-        mazeManager = FindFirstObjectByType<MazeManager>();
     }
 
     private void OnEnable()

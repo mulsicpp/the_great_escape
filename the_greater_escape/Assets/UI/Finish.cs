@@ -11,6 +11,8 @@ public class Finish : MonoBehaviour
     private Button mainmenu;
     private Button restart;
 
+    public MazeManager mazeManager;
+
     private void Awake()
     {
         root = document.rootVisualElement;
@@ -42,7 +44,18 @@ public class Finish : MonoBehaviour
     {
         // Hide pause UI
         root.style.display = DisplayStyle.None;
+
+        Time.timeScale = 1;
+
+        mazeManager.gameObject.SetActive(false);
+        mazeManager.seed = new System.Random().Next();
+        mazeManager.gameObject.SetActive(true);
     }
 
+    public void Show()
+    {
+        mazeManager.gameObject.SetActive(false);
 
+        root.style.display = DisplayStyle.Flex;
+    }
 }

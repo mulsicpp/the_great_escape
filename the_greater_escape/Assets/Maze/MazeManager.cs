@@ -21,7 +21,7 @@ public class MazeManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if(wallParent != null) Destroy(wallParent);
+        Destroy(wallParent);
         Spawn();
     }
 

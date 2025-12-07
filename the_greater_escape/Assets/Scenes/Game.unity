@@ -191,6 +191,7 @@ MonoBehaviour:
   document: {fileID: 190118846}
   mainmenuobject: {fileID: 1428074266}
   tutorialDocument: {fileID: 1686312768}
+  mazeManager: {fileID: 1219697156}
 --- !u!114 &190118849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Finish
   document: {fileID: 1553683593}
   mainmenuobject: {fileID: 1428074266}
+  mazeManager: {fileID: 1219697156}
 --- !u!114 &1553683596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +484,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 55379643555740274, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: pause
+      value: 
+      objectReference: {fileID: 190118848}
+    - target: {fileID: 55379643555740274, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: finish
+      value: 
+      objectReference: {fileID: 1553683595}
     - target: {fileID: 421819923884459150, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.07
@@ -489,6 +499,10 @@ PrefabInstance:
     - target: {fileID: 421819923884459150, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003073852755512549, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3050992862009627231, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
       propertyPath: m_LocalPosition.x
