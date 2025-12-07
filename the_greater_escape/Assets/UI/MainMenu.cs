@@ -102,6 +102,7 @@ public class MainMenu : MonoBehaviour, IUIScreen
 
     public void Show()
     {
+        volume.value = backgroundMusic.volume * 100;
         root.style.display = DisplayStyle.Flex;
     }
 }

@@ -38,8 +38,10 @@ public class Pause : MonoBehaviour, IUIScreen
         mainmenu.clicked += OnMainMenuPressed;
         tutorial.clicked += OnTutorialPressed;
         restart.clicked += OnRestartPressed;
-
+        Debug.Log(volume.value);
         volume.value = backgroundMusic.volume * 100;
+        Debug.Log(volume.value);
+
         volume.RegisterValueChangedCallback(evt =>
         {
             backgroundMusic.volume = evt.newValue / 100;
@@ -94,6 +96,7 @@ public class Pause : MonoBehaviour, IUIScreen
 
     public void Show()
     {
+        volume.value = backgroundMusic.volume * 100;
         Time.timeScale = 0;
         root.style.display = DisplayStyle.Flex;
     }
