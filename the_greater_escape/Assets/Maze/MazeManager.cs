@@ -9,21 +9,20 @@ public class MazeManager : MonoBehaviour
     public Maze maze;
     public MazeGrid grid;
 
-    [SerializeField] public GameObject wallsParent;
     [SerializeField] public int dim;
     [SerializeField] public int seed;
     [SerializeField] public Material wallMaterial;
     [SerializeField] public Material wallMaterial2;
     [SerializeField] public Material wallMaterial3;
 
-    public GameObject exitLightPrefab;
+    public GameObject exitLight;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    private GameObject wallParent;
+
+    private void OnEnable()
     {
-        maze = new Maze(dim, seed);
-        grid = new MazeGrid(maze);
-        LoadMaze(maze, dim);
+        if(wallParent != null) Destroy(wallParent);
+        Spawn();
     }
 
     // Update is called once per frame
@@ -32,9 +31,22 @@ public class MazeManager : MonoBehaviour
         
     }
 
+    private void Spawn()
+    {
+        maze = new Maze(dim, seed);
+        grid = new MazeGrid(maze);
+        LoadMaze(maze, dim);
+
+        var player = GetComponentInChildren<Player>();
+        player.maze_grid = grid;
+        player.graffiti_count = (dim * dim * dim) / 10 + 1;
+        player.wallParent = wallParent;
+    }
+
 
     public void LoadMaze(Maze maze, int dim)
     {
+        wallParent = Instantiate(new GameObject("Walls"), transform);
         foreach (var cells in maze.wallList)
         {
             var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -60,9 +72,9 @@ public class MazeManager : MonoBehaviour
                 wall.GetComponent<Renderer>().material = wallMaterial2;
             else
                 wall.GetComponent<Renderer>().material = wallMaterial3;
-            wall.transform.parent = wallsParent.transform;
+            wall.transform.parent = wallParent.transform;
 
         }
-        Instantiate(exitLightPrefab, new Vector3(dim - 1, dim - 1, dim - 0.5f), Quaternion.Euler(180, 0, 0));
+        exitLight.transform.position =  new Vector3(dim - 1, dim - 1, dim - 0.5f);
     }
 }

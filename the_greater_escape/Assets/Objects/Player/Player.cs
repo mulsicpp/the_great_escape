@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     TransformInterpolation interpolation;
 
     public MazeGrid maze_grid;
+    public GameObject wallParent;
 
     public GameObject graffiti_prefab;
     public int graffiti_count;
@@ -43,7 +44,12 @@ public class Player : MonoBehaviour
     private Shader urp;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
+    {
+        urp = Shader.Find("Universal Render Pipeline/Lit");
+    }
+
+    void OnEnable()
     {
         player_transform = new PlayerTransform
         {
@@ -54,14 +60,10 @@ public class Player : MonoBehaviour
 
         interpolation = null;
 
-        var maze_manager = GetComponent<MazeManager>();
-
-        maze_grid = maze_manager.grid;
-
-        graffiti_count = (maze_manager.dim * maze_manager.dim * maze_manager.dim) / 1 + 1;
-
-        urp = Shader.Find("Universal Render Pipeline/Lit");
+        transform.localPosition = player_transform.Position();
+        transform.localRotation = player_transform.Rotation().rotation;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -169,7 +171,7 @@ public class Player : MonoBehaviour
             var target_position = player_transform.grid_position + player_transform.forward;
             if (graffiti_count > 0 && (maze_grid.Contains(player_transform.grid_position) || maze_grid.Contains(target_position)) && maze_grid.Between(player_transform.grid_position, target_position))
             {
-                Instantiate(graffiti_prefab, transform.position, transform.rotation);
+                Instantiate(graffiti_prefab, player_transform.Position(), player_transform.Rotation().rotation, wallParent.transform);
                 graffiti_count--;
             }
         }
