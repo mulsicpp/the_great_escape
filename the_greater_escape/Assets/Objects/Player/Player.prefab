@@ -330,6 +330,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d4ec901e-89ba-4de6-b35d-3458de7e7d61
     m_ActionName: 'Player/Paint[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 299a5b94-48c9-48ce-bd68-88fa5f62784b
+    m_ActionName: 'Player/Esc[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -371,12 +375,12 @@ MonoBehaviour:
   wallParent: {fileID: 0}
   graffiti_prefab: {fileID: 4023361308922338429, guid: 9c9cfdf0b5807174d8fa12b8d2f77815, type: 3}
   graffiti_count: 0
-  graffiti_textures:
-  - {fileID: 2800000, guid: 511cd4e31165b7249ada67d04f2adb1b, type: 3}
-  - {fileID: 2800000, guid: 200492ad3904f9d4399f5f45f4283265, type: 3}
-  - {fileID: 2800000, guid: 3453cbd738a40a94ebb0b2be06067a8f, type: 3}
-  - {fileID: 2800000, guid: 14c0d07425255aa408ddce9141639ddc, type: 3}
-  - {fileID: 2800000, guid: 154d322d861abae45a62046921ce2fbf, type: 3}
+  base_materials:
+  - {fileID: 2100000, guid: ae34c1fe874966040a67c31683ec3d93, type: 2}
+  - {fileID: 2100000, guid: c53ac3de3d103d441b4fcfed95627bde, type: 2}
+  - {fileID: 2100000, guid: 4fdd71a2d2de32f4bb6ad2106f2be046, type: 2}
+  - {fileID: 2100000, guid: e45bd212be2d4fb4896be139d98ed828, type: 2}
+  - {fileID: 2100000, guid: bd3e2e5858248ae4089638eb8a8e47fa, type: 2}
   graffiti_colors:
   - {r: 1, g: 0.051886797, b: 0.051886797, a: 0}
   - {r: 1, g: 0.500439, b: 0.05098039, a: 0}
@@ -390,6 +394,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 337b835d9f4835b4699d3da1712aa414, type: 3}
   suprise: {fileID: 8300000, guid: ed10b3fd8227d3f40b371b3c842e01cd, type: 3}
   audiosource: {fileID: -6943180300301998369}
+  pause: {fileID: 0}
+  finish: {fileID: 0}
 --- !u!82 &-6943180300301998369
 AudioSource:
   m_ObjectHideFlags: 0

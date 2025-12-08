@@ -1,4 +1,3 @@
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,7 +38,7 @@ public class Player : MonoBehaviour
     public GameObject graffiti_prefab;
     public int graffiti_count;
 
-    public Texture[] graffiti_textures;
+    public Material[] base_materials;
     public Color[] graffiti_colors;
     public AudioClip[] footsteps;
     public AudioClip suprise;
@@ -48,13 +47,9 @@ public class Player : MonoBehaviour
     public Pause pause;
     public Finish finish;
 
-    private Shader urp;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        urp = Shader.Find("Universal Render Pipeline/Lit");
-
         audiosource = GetComponent<AudioSource>();
     }
 
@@ -165,22 +160,8 @@ public class Player : MonoBehaviour
             var mesh_renderer = graffiti_prefab.GetComponentInChildren<MeshRenderer>();
             var light = graffiti_prefab.GetComponentInChildren<Light>();
 
-            Material material = new Material(urp);
-
-            var texture = graffiti_textures[graffiti_count % graffiti_textures.Length];
+            Material material = new Material(base_materials[graffiti_count % base_materials.Length]);
             var color = graffiti_colors[graffiti_count % graffiti_colors.Length];
-
-            material.SetFloat("_AlphaClip", 1.0f);
-            material.SetFloat("_Cutoff", 0.5f);
-            material.EnableKeyword("_ALPHATEST_ON");
-
-            material.SetTexture("_BaseMap", texture);
-            material.SetColor("_BaseColor", Color.black);
-
-            material.SetFloat("_Metallic", 0.0f);
-
-            material.EnableKeyword("_EMISSION");
-            material.SetTexture("_EmissionMap", texture);
             material.SetColor("_EmissionColor", color);
 
             light.color = color;
