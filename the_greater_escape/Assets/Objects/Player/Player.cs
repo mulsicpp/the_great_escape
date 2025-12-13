@@ -1,5 +1,50 @@
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+public enum TelemetryEvent
+{
+    GAME_START,
+    GAME_WON,
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN,
+    FORWARD,
+    BUMP
+}
+
+public class TelemetryEncoder
+{
+    const string TELEMETRY_PATH = "Telemetry";
+
+
+    private readonly FileStream stream;
+    private double start_time;
+
+
+    public TelemetryEncoder(uint size)
+    {
+        Debug.Log(System.IO.Directory.GetCurrentDirectory());
+
+        var time = System.DateTime.Now;
+
+        Directory.CreateDirectory(TELEMETRY_PATH);
+        stream = File.Create(TELEMETRY_PATH + "/Game" + time.ToBinary().ToString());
+        stream.Write(System.BitConverter.GetBytes((uint)TelemetryEvent.GAME_START), 0, 4);
+        stream.Write(System.BitConverter.GetBytes(size), 0, 4);
+        stream.Flush();
+
+        start_time = Time.realtimeSinceStartupAsDouble;
+    }
+
+    public void AddEvent(TelemetryEvent e)
+    {
+        stream.Write(System.BitConverter.GetBytes((uint)e), 0, 4);
+        stream.Write(System.BitConverter.GetBytes((uint)((Time.realtimeSinceStartupAsDouble - start_time) * 1000)), 0, 4);
+        stream.Flush();
+    }
+}
 
 public struct PlayerTransform
 {
@@ -47,6 +92,8 @@ public class Player : MonoBehaviour
     public Pause pause;
     public Finish finish;
 
+    public TelemetryEncoder telemetry;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -82,6 +129,7 @@ public class Player : MonoBehaviour
 
         if (!maze_grid.Contains(player_transform.grid_position))
         {
+            telemetry.AddEvent(TelemetryEvent.GAME_WON);
             finish.Show();
         }
     }
@@ -135,7 +183,7 @@ public class Player : MonoBehaviour
             float maxVolume = audiosource.volume;
             float randomVolume = Random.Range(0.3f * maxVolume, maxVolume);
             var clip = footsteps[random_index];
-            
+
             var target_position = player_transform.grid_position + player_transform.forward;
             if ((maze_grid.Contains(player_transform.grid_position) || maze_grid.Contains(target_position)) && maze_grid.Between(player_transform.grid_position, target_position))
             {

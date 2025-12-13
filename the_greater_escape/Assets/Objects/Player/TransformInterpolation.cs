@@ -46,6 +46,8 @@ public class RotateLeftInterpolation : TransformInterpolation
     public override void Finish(Player player)
     {
         player.player_transform.forward = -player.player_transform.calc_right();
+
+        player.telemetry.AddEvent(TelemetryEvent.LEFT);
     }
 
     public override Matrix4x4 InterpolatedRotation(float time)
@@ -59,6 +61,8 @@ public class RotateRightInterpolation : TransformInterpolation
     public override void Finish(Player player)
     {
         player.player_transform.forward = player.player_transform.calc_right();
+
+        player.telemetry.AddEvent(TelemetryEvent.RIGHT);
     }
 
     public override Matrix4x4 InterpolatedRotation(float time)
@@ -74,6 +78,8 @@ public class RotateDownInterpolation : TransformInterpolation
         var down = -player.player_transform.up;
         player.player_transform.up = player.player_transform.forward;
         player.player_transform.forward = down;
+
+        player.telemetry.AddEvent(TelemetryEvent.DOWN);
     }
 
     public override Matrix4x4 InterpolatedRotation(float time)
@@ -89,6 +95,8 @@ public class RotateUpInterpolation : TransformInterpolation
         var backward = -player.player_transform.forward;
         player.player_transform.forward = player.player_transform.up;
         player.player_transform.up = backward;
+
+        player.telemetry.AddEvent(TelemetryEvent.UP);
     }
 
     public override Matrix4x4 InterpolatedRotation(float time)
@@ -102,6 +110,7 @@ public class MoveForwardInterpolation : TransformInterpolation
     public override void Finish(Player player)
     {
         player.player_transform.grid_position += player.player_transform.forward;
+        player.telemetry.AddEvent(TelemetryEvent.FORWARD);
     }
 
     public override Vector3 InterpolatedPosition(PlayerTransform player_transform, float time)
@@ -115,7 +124,9 @@ public class BumpWallInterpolation : TransformInterpolation
 
     public override float Factor() { return 2.0f; }
 
-    public override void Finish(Player player) { }
+    public override void Finish(Player player) {
+        player.telemetry.AddEvent(TelemetryEvent.BUMP);
+    }
 
     public override Vector3 InterpolatedPosition(PlayerTransform player_transform, float time)
     {

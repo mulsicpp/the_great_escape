@@ -7,7 +7,7 @@ public class MazeGrid
     private bool[,,] y_walls;
     private bool[,,] z_walls;
 
-    private int dim;
+    public readonly int dim;
 
     public MazeGrid(Maze maze)
     {
