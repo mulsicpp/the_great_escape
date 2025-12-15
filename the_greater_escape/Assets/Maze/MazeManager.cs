@@ -42,7 +42,7 @@ public class MazeManager : MonoBehaviour
         player.graffiti_count = (dim * dim * dim) / 10 + 1;
         player.wallParent = wallParent;
 
-        player.telemetry = new TelemetryEncoder((uint)dim);
+        player.telemetry = new TelemetryEncoder((uint)seed, (uint)dim);
     }
 
 

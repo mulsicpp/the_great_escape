@@ -4,14 +4,14 @@ using UnityEngine.InputSystem;
 
 public enum TelemetryEvent
 {
-    GAME_START,
     GAME_WON,
     LEFT,
     RIGHT,
     UP,
     DOWN,
     FORWARD,
-    BUMP
+    BUMP,
+    STICKER
 }
 
 public class TelemetryEncoder
@@ -23,15 +23,15 @@ public class TelemetryEncoder
     private double start_time;
 
 
-    public TelemetryEncoder(uint size)
+    public TelemetryEncoder(uint seed, uint size)
     {
         Debug.Log(System.IO.Directory.GetCurrentDirectory());
 
         var time = System.DateTime.Now;
 
         Directory.CreateDirectory(TELEMETRY_PATH);
-        stream = File.Create(TELEMETRY_PATH + "/Game" + time.ToBinary().ToString());
-        stream.Write(System.BitConverter.GetBytes((uint)TelemetryEvent.GAME_START), 0, 4);
+        stream = File.Create(TELEMETRY_PATH + "/Game-" + ((ulong)time.ToBinary()).ToString());
+        stream.Write(System.BitConverter.GetBytes(seed), 0, 4);
         stream.Write(System.BitConverter.GetBytes(size), 0, 4);
         stream.Flush();
 
@@ -221,6 +221,7 @@ public class Player : MonoBehaviour
             {
                 Instantiate(graffiti_prefab, player_transform.Position(), player_transform.Rotation().rotation, wallParent.transform);
                 graffiti_count--;
+                telemetry.AddEvent(TelemetryEvent.STICKER);
             }
         }
     }
