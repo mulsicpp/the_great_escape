@@ -250,6 +250,7 @@ if __name__ == "__main__":
     else:
         x, y = [], []
 
+    plt.figure(figsize=(6, 4), dpi=200)
     plt.bar(x, y)
     plt.xlabel("Maze Size")
     plt.xticks(x)
@@ -269,6 +270,7 @@ if __name__ == "__main__":
     else:
         x, y = [], []
 
+    plt.figure(figsize=(6, 4), dpi=200)
     plt.bar(x, y)
     plt.xlabel("Maze Size")
     plt.xticks(x)
@@ -287,6 +289,7 @@ if __name__ == "__main__":
     else:
         x, y = [], []
 
+    plt.figure(figsize=(6, 4), dpi=200)
     plt.bar(x, y)
     plt.xlabel("Maze Size")
     plt.xticks(x)
@@ -323,11 +326,11 @@ if __name__ == "__main__":
     else:
         labels, vals = [], []
 
+    plt.figure(figsize=(6, 4), dpi=200)
     plt.pie(vals, autopct="%1.1f%%", pctdistance=1.15)
 
-    plt.legend(["Turn", "Step", "Bump", "Sticker"], title="Actions")
+    plt.legend(["Turn", "Step", "Bump", "Marker"], title="Actions")
     plt.axis("equal")
-    plt.title("Action Distribution")
     
     plt.savefig(f"{current_dir}/diag/action_distribution.png")
     plt.close()
