@@ -5,6 +5,7 @@ import struct
 from typing import List, Tuple
 
 import matplotlib.pyplot as plt
+from matplotlib.ticker import PercentFormatter
 
 class TelemetryEvent(IntEnum):
     GAME_WON = 0
@@ -15,6 +16,12 @@ class TelemetryEvent(IntEnum):
     FORWARD = 5
     BUMP = 6
     STICKER = 7
+
+class AbstractTelemetryEvent(IntEnum):
+    TURN = 0,
+    STEP = 1
+    BUMP = 2
+    STICKER = 3
 
 
 TelemetryEntry = Tuple[TelemetryEvent, int]
@@ -44,6 +51,20 @@ class TelemetryData:
     def sticker_count(self):
         return len([val for val, t in self.events if val == TelemetryEvent.STICKER])
 
+
+def format_duration(millis: int) -> str:
+    seconds = millis / 1000
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+
+    parts = []
+    if hours:
+        parts.append(f"{hours} h")
+    if minutes:
+        parts.append(f"{minutes} min")
+    parts.append(f"{seconds} s")
+
+    return " ".join(parts)
 
 def read_telemetry_file(path: str) -> TelemetryData:
     events: List[TelemetryEntry] = []
@@ -82,6 +103,9 @@ def iter_telemetry_files(directory: str):
         if filename == "Reader.py":
             continue
 
+        if filename.endswith(".png"):
+            continue
+
         path = os.path.join(directory, filename)
 
 
@@ -106,8 +130,6 @@ def group_by(pairs, grouping_function):
 
     for key, value in pairs:
         group_values[key].append(value)
-
-    print(group_values)
     
     group_pairs = list()
 
@@ -139,6 +161,7 @@ def average(values: list):
      return sum(values) / len(values)
 
 
+    
 
 if __name__ == "__main__":
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -193,7 +216,7 @@ if __name__ == "__main__":
 
 
 
-    losers_and_amount_of_actions_sorted_by_size = 1
+    losers_and_amount_of_actions_sorted_by_size = 0
     if losers_and_amount_of_actions_sorted_by_size:
         print()
         print("Losers and how many actions they did, sorted by maze size:")
@@ -210,22 +233,102 @@ if __name__ == "__main__":
             print(f"  Gave up after {w.events[-1][1]}ms and {len(w.events)} Actions")
             print()
 
-    telemetries = [telemetry for _, telemetry in iter_telemetry_files(current_dir)]
+    telemetries = [t for _, t in iter_telemetry_files(current_dir)]
 
-    data = [(telemetry._maze_size, telemetry.completed()) for telemetry in telemetries]
+    avg_game_duration = average([t.duration() for t in telemetries])
+
+    print(f"Average game duration: {format_duration(avg_game_duration)}")
+
+    os.makedirs(f"{current_dir}/diag", exist_ok=True)
+
+    data = group_by([(t._maze_size, t.completed()) for t in telemetries], true_rate)
     for size, won in data:
         print(f"Size: {size} Won: {won}")
-
-    new_data = group_by(data, true_rate)
-    for size, won in new_data:
-        print(f"Size: {size} Won: {won}")
     
-    if new_data:
-        x, y = zip(*new_data)
+    if data:
+        x, y = zip(*data)
     else:
         x, y = [], []
 
-    plt.plot(x, y)
-    plt.savefig("completion_rate_by_size.png")
+    plt.bar(x, y)
+    plt.xlabel("Maze Size")
+    plt.xticks(x)
+
+    plt.ylabel("Completion Rate")
+    plt.gca().yaxis.set_major_formatter(PercentFormatter(1.0))
+
+    plt.savefig(f"{current_dir}/diag/completion_rate_by_size.png")
+    plt.close()
+
+    data = group_by([(t._maze_size, t.duration() / 60000) for t in telemetries], average)
+    for size, duration in data:
+        print(f"Size: {size} Duration: {duration}")
+    
+    if data:
+        x, y = zip(*data)
+    else:
+        x, y = [], []
+
+    plt.bar(x, y)
+    plt.xlabel("Maze Size")
+    plt.xticks(x)
+
+    plt.ylabel("Avg. Game Duration (min)")
+
+    plt.savefig(f"{current_dir}/diag/game_duration_by_size.png")
+    plt.close()
+
+    data = group_by([(t._maze_size, t.step_count()) for t in telemetries if t.completed()], average)
+    for size, steps in data:
+        print(f"Size: {size} Steps: {steps}")
+    
+    if data:
+        x, y = zip(*data)
+    else:
+        x, y = [], []
+
+    plt.bar(x, y)
+    plt.xlabel("Maze Size")
+    plt.xticks(x)
+
+    plt.ylabel("Avg. Step Count")
+
+    plt.savefig(f"{current_dir}/diag/steps_by_size.png")
+    plt.close()
+
+    abstract_event_map = defaultdict(AbstractTelemetryEvent)
+
+    abstract_event_map[TelemetryEvent.LEFT] = AbstractTelemetryEvent.TURN
+    abstract_event_map[TelemetryEvent.RIGHT] = AbstractTelemetryEvent.TURN
+    abstract_event_map[TelemetryEvent.UP] = AbstractTelemetryEvent.TURN
+    abstract_event_map[TelemetryEvent.DOWN] = AbstractTelemetryEvent.TURN
+
+    abstract_event_map[TelemetryEvent.FORWARD] = AbstractTelemetryEvent.STEP
+    abstract_event_map[TelemetryEvent.BUMP] = AbstractTelemetryEvent.BUMP
+    abstract_event_map[TelemetryEvent.STICKER] = AbstractTelemetryEvent.STICKER
+
+    events_completed = list()
+    events_uncompleted = list()
+
+    for t in telemetries:
+        if t.completed():
+            events_completed += t.events
+        else:
+            events_uncompleted += t.events
+
+    data = group_by([(abstract_event_map.get(e), 0) for e, _ in events_completed + events_uncompleted if e != TelemetryEvent.GAME_WON], len)
+
+    if data:
+        labels, vals = zip(*data)
+    else:
+        labels, vals = [], []
+
+    plt.pie(vals, autopct="%1.1f%%", pctdistance=1.15)
+
+    plt.legend(["Turn", "Step", "Bump", "Sticker"], title="Actions")
+    plt.axis("equal")
+    plt.title("Action Distribution")
+    
+    plt.savefig(f"{current_dir}/diag/action_distribution.png")
     plt.close()
 
