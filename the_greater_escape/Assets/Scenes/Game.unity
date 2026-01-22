@@ -475,7 +475,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496012054}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1496012057
 Camera:
   m_ObjectHideFlags: 0
@@ -913,6 +913,86 @@ PrefabInstance:
     - target: {fileID: 3050992862009627231, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742065337267126862, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionId
+      value: 19be2ef0-b8f3-422f-9a3c-b73f6a7e45a0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+      value: 293963ee-bc40-4938-b491-aa0bfb6bad32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionName
+      value: 'Player/BuildWall[/Keyboard/f]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+      value: 'Player/DestroyWall[/Keyboard/r]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234809515}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234809515}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BuildWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DestroyWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Player, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Player, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891015532522768914, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6561106624121702447, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
       propertyPath: m_BackGroundColor.a

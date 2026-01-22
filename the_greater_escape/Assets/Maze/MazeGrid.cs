@@ -22,7 +22,12 @@ public class MazeGrid
             var cell1 = Vector3Int.RoundToInt(wall.Item1);
             var cell2 = Vector3Int.RoundToInt(wall.Item2);
 
-            Between(cell1, cell2) = true;
+            //Between(cell1, cell2) = true;
+            if(wall.Item3 == 1)
+            {
+                ref var wall_ref = ref Between(cell1, cell2);
+                wall_ref = true;
+            }
         }
     }
 
@@ -53,6 +58,17 @@ public class MazeGrid
         }
 
         throw new ArgumentException("Specified cells are not neighbors");
+    }
+
+    public void BuildWall(Vector3Int cell1, Vector3Int cell2)
+    {
+        ref var wall_ref = ref Between(cell1, cell2);
+        wall_ref = true;
+    }
+    public void DestroyWall(Vector3Int cell1, Vector3Int cell2)
+    {
+        ref var wall_ref = ref Between(cell1, cell2);
+        wall_ref = false;
     }
 
     public bool Contains(Vector3Int position)

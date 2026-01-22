@@ -41,6 +41,7 @@ public class MazeManager : MonoBehaviour
         player.maze_grid = grid;
         player.graffiti_count = (dim * dim * dim) / 10 + 1;
         player.wallParent = wallParent;
+        
 
         player.telemetry = new TelemetryEncoder((uint)seed, (uint)dim);
     }
@@ -54,7 +55,21 @@ public class MazeManager : MonoBehaviour
         foreach (var cells in maze.wallList)
         {
             var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            
+            if(cells.Item3 == 0)
+            {
+                MeshRenderer rend = wall.GetComponent<MeshRenderer>();
+                wall.gameObject.tag = "Inner Wall";
+                rend.enabled = false;
+            }
+            else if(cells.Item3 == 1)
+            {
+                wall.gameObject.tag = "Inner Wall";
+            }
+            else if (cells.Item3 == 2)
+            {
+                wall.gameObject.tag = "Outer Wall";
+            }
+
             Vector3 pos = (cells.Item1 + cells.Item2) / 2;
             wall.transform.position = pos;
             Vector3 scale = (cells.Item2 - cells.Item1);

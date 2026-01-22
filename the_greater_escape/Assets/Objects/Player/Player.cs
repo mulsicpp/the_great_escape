@@ -1,4 +1,5 @@
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -82,6 +83,10 @@ public class Player : MonoBehaviour
 
     public GameObject graffiti_prefab;
     public int graffiti_count;
+
+    public int wall_build_count;
+    public int material_count = 5;
+    public int material_build_cost = 5;
 
     public Material[] base_materials;
     public Color[] graffiti_colors;
@@ -225,6 +230,50 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    public void BuildWall(InputAction.CallbackContext context)
+    {
+        if(context.started && Time.timeScale > 0.5)
+        {
+            var target_position = player_transform.grid_position + player_transform.forward;
+            if(Physics.Raycast(player_transform.Position(), player_transform.forward, out RaycastHit hitInfo, 1f))
+            {
+                if (!hitInfo.collider.GetComponent<MeshRenderer>().enabled)
+                {
+                    hitInfo.collider.GetComponent<MeshRenderer>().enabled = true;
+                    maze_grid.BuildWall(player_transform.grid_position, target_position);
+                    
+                    material_count++;
+                    if (material_count % material_build_cost == 0)
+                    {
+                        wall_build_count++;
+                    }
+                }
+               
+            }
+        }
+        
+    }
+
+    public void DestroyWall(InputAction.CallbackContext context)
+    {
+        if (context.started && Time.timeScale > 0.5)
+        {
+            var target_position = player_transform.grid_position + player_transform.forward;
+            if (Physics.Raycast(player_transform.Position(), player_transform.forward, out RaycastHit hitInfo, 1f))
+            {
+                if (hitInfo.collider.GetComponent<MeshRenderer>().enabled && hitInfo.collider.gameObject.tag == "Inner Wall")
+                {
+                    hitInfo.collider.GetComponent<MeshRenderer>().enabled = false;
+                    maze_grid.DestroyWall(player_transform.grid_position, target_position);
+                    wall_build_count--;
+                }
+
+            }
+        }
+
+    }
+
 
     public void OnEsc(InputAction.CallbackContext context)
     {

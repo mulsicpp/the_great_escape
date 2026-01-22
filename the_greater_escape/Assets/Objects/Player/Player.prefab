@@ -334,6 +334,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 299a5b94-48c9-48ce-bd68-88fa5f62784b
     m_ActionName: 'Player/Esc[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7127356876196769389}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: BuildWall
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 19be2ef0-b8f3-422f-9a3c-b73f6a7e45a0
+    m_ActionName: 'Player/BuildWall[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

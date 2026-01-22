@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 using Random = System.Random;
 
 public class Maze
@@ -9,7 +10,7 @@ public class Maze
     private HashSet<Vector3>[,,] cellSets;
 
     //Liste an Wänden, die Zwischen Zellen mit Koordinaten xyz Verlaufen Wand = Tuple(Zelle1, Zelle2);  Zelle = Triple(x,y,z)
-    public List<Tuple<Vector3, Vector3>> wallList;
+    public List<Tuple<Vector3, Vector3, int>> wallList;
     public Vector3 exit;
     public int dim;
 
@@ -50,7 +51,7 @@ public class Maze
 
     private void walls(int dim)
     {
-        wallList = new List<Tuple<Vector3, Vector3>>();
+        wallList = new List<Tuple<Vector3, Vector3, int>>();
 
 
         for (int row = 0; row < dim; row++)
@@ -63,17 +64,17 @@ public class Maze
 
                     if (d != dim - 1) //right wall
                     {
-                        wallList.Add(new Tuple<Vector3, Vector3>(new Vector3(row, col, d), new Vector3(row, col, d + 1)));
+                        wallList.Add(new Tuple<Vector3, Vector3, int>(new Vector3(row, col, d), new Vector3(row, col, d + 1), 1));
                     }
 
                     if (col != dim - 1) //front wall
                     {
-                        wallList.Add(new Tuple<Vector3, Vector3>(new Vector3(row, col, d), new Vector3(row, col + 1, d)));
+                        wallList.Add(new Tuple<Vector3, Vector3, int>(new Vector3(row, col, d), new Vector3(row, col + 1, d), 1));
                     }
 
                     if (row != dim - 1) //down wall
                     {
-                        wallList.Add(new Tuple<Vector3, Vector3>(new Vector3(row, col, d), new Vector3(row + 1, col, d)));
+                        wallList.Add(new Tuple<Vector3, Vector3, int>(new Vector3(row, col, d), new Vector3(row + 1, col, d),1 ));
                     }
 
 
@@ -98,7 +99,7 @@ public class Maze
     {
         for (var index = wallList.Count - 1; index >= 0; index--)
         {
-            Tuple<Vector3, Vector3> t = wallList[index];
+            Tuple<Vector3, Vector3, int> t = wallList[index];
             Vector3 t1 = t.Item1;
             Vector3 t2 = t.Item2;
             if (!cellSets[(int)t1.x, (int)t1.y, (int)t1.z].Equals(cellSets[(int)t2.x, (int)t2.y, (int)t2.z]))
@@ -113,7 +114,9 @@ public class Maze
                     }
                 }
 
-                wallList.Remove(t);
+                wallList[index] = new Tuple<Vector3, Vector3, int>(t1, t2, 0);
+                //wallList.Remove(t);
+
             }
         }
     }
@@ -121,23 +124,23 @@ public class Maze
     private void outerwalls(int dim, Random seed)
     {
 
-        List<Tuple<Vector3, Vector3>> outerwallList = new List<Tuple<Vector3, Vector3>>();
+        List<Tuple<Vector3, Vector3, int>> outerwallList = new List<Tuple<Vector3, Vector3, int>>();
 
         for (int row = 0; row < dim; row++)
         {
             for (int col = 0; col < dim; col++)
             {
-                outerwallList.Add(new Tuple<Vector3, Vector3>(new Vector3(0, row, col), new Vector3(-1, row, col)));
-                outerwallList.Add(new Tuple<Vector3, Vector3>(new Vector3(dim - 1, row, col), new Vector3(dim, row, col)));
-                outerwallList.Add(new Tuple<Vector3, Vector3>(new Vector3(row, 0, col), new Vector3(row, -1, col)));
-                outerwallList.Add(new Tuple<Vector3, Vector3>(new Vector3(row, dim - 1, col), new Vector3(row, dim, col)));
-                outerwallList.Add(new Tuple<Vector3, Vector3>(new Vector3(row, col, 0), new Vector3(row, col, -1)));
-                outerwallList.Add(new Tuple<Vector3, Vector3>(new Vector3(row, col, dim - 1), new Vector3(row, col, dim)));
+                outerwallList.Add(new Tuple<Vector3, Vector3, int>(new Vector3(0, row, col), new Vector3(-1, row, col), 2));
+                outerwallList.Add(new Tuple<Vector3, Vector3, int>(new Vector3(dim - 1, row, col), new Vector3(dim, row, col), 2));
+                outerwallList.Add(new Tuple<Vector3, Vector3, int>(new Vector3(row, 0, col), new Vector3(row, -1, col), 2));
+                outerwallList.Add(new Tuple<Vector3, Vector3, int>(new Vector3(row, dim - 1, col), new Vector3(row, dim, col), 2));
+                outerwallList.Add(new Tuple<Vector3, Vector3, int>(new Vector3(row, col, 0), new Vector3(row, col, -1), 2));
+                outerwallList.Add(new Tuple<Vector3, Vector3, int>(new Vector3(row, col, dim - 1), new Vector3(row, col, dim), 2));
             }
         }
         
 
-        Tuple<Vector3, Vector3> exitWall = new Tuple<Vector3, Vector3>(new Vector3(dim - 1, dim - 1, dim - 1), new Vector3(dim - 1, dim - 1, dim));
+        Tuple<Vector3, Vector3, int> exitWall = new Tuple<Vector3, Vector3, int>(new Vector3(dim - 1, dim - 1, dim - 1), new Vector3(dim - 1, dim - 1, dim), 1);
         exit = exitWall.Item1 + (exitWall.Item2 - exitWall.Item1);
         outerwallList.Remove(exitWall);
         wallList.AddRange(outerwallList);
