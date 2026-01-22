@@ -395,7 +395,12 @@ if __name__ == "__main__":
         miss_input_count[i] /= total_input_count[i]
 
     plt.figure(figsize=(6, 4), dpi=200)
-    plt.bar(list(range(4)), miss_input_count)
+    plt.bar(["Left", "Right", "Up", "Down"], miss_input_count, color=["green", "green", "red", "red"])
+
+    plt.xlabel("Direction")
+
+    plt.ylabel("Correction Rate")
+    plt.gca().yaxis.set_major_formatter(PercentFormatter(1.0))
     
     plt.savefig(f"{current_dir}/diag/miss_inputs.png")
     plt.close()

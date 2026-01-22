@@ -8,6 +8,7 @@ public class MazeManager : MonoBehaviour
 {
     public Maze maze;
     public MazeGrid grid;
+    public NavGrid navGrid;
 
     [SerializeField] public int dim;
     [SerializeField] public int seed;
@@ -35,6 +36,8 @@ public class MazeManager : MonoBehaviour
     {
         maze = new Maze(dim, seed);
         grid = new MazeGrid(maze);
+        navGrid = grid.navigateTo(new(dim - 1, dim - 1, dim - 1));
+        navGrid.Log();
         LoadMaze(maze, dim);
 
         var player = GetComponentInChildren<Player>();
@@ -95,5 +98,17 @@ public class MazeManager : MonoBehaviour
 
         }
         exitLight.transform.position =  new Vector3(dim - 1, dim - 1, dim - 0.5f);
+    }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        for (int i = 0; i < dim; i++)
+            for (int j = 0; j < dim; j++)
+                for (int k = 0; k < dim; k++)
+                {
+                    var dir = navGrid.GetDirection(new Vector3Int(i, j, k));
+                    Gizmos.DrawLine(new Vector3(i, j, k), new Vector3(i, j, k) + new Vector3(dir.x, dir.y, dir.z) * 0.5f);
+                }
     }
 }
