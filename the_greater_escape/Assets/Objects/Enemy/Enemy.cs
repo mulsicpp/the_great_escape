@@ -16,12 +16,11 @@ public class Enemy : Entity
     public const float INSPECTING_SPEED = 0.8f;
     public const float CHASE_SPEED = 1.2f;
 
-    TransformInterpolation interpolation;
+    public TransformInterpolation interpolation;
 
     public Vector3Int last_knwon_player_pos;
     public NavGrid nav_grid;
     public EnemyState state;
-
     public float speed;
 
     void OnEnable()

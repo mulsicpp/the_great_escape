@@ -79,6 +79,8 @@ public class Player : Entity
     public MazeGrid maze_grid;
     public GameObject wallParent;
 
+    public Enemy enemy;
+
     public GameObject graffiti_prefab;
     public int graffiti_count;
 
@@ -133,6 +135,11 @@ public class Player : Entity
         if (!maze_grid.Contains(player_transform.grid_position))
         {
             telemetry.AddEvent(TelemetryEvent.GAME_WON);
+            finish.Show();
+        }
+
+        if (player_transform.grid_position == enemy.player_transform.grid_position || (enemy.interpolation is MoveForwardInterpolation && player_transform.grid_position == enemy.player_transform.grid_position + enemy.player_transform.forward))
+        {
             finish.Show();
         }
     }
@@ -231,26 +238,26 @@ public class Player : Entity
 
     public void BuildWall(InputAction.CallbackContext context)
     {
-        if(context.started && Time.timeScale > 0.5)
+        if (context.started && Time.timeScale > 0.5)
         {
             var target_position = player_transform.grid_position + player_transform.forward;
-            if(Physics.Raycast(player_transform.Position(), player_transform.forward, out RaycastHit hitInfo, 1f))
+            if (Physics.Raycast(player_transform.Position(), player_transform.forward, out RaycastHit hitInfo, 1f))
             {
                 if (!hitInfo.collider.GetComponent<MeshRenderer>().enabled)
                 {
                     hitInfo.collider.GetComponent<MeshRenderer>().enabled = true;
                     maze_grid.BuildWall(player_transform.grid_position, target_position);
-                    
+
                     material_count++;
                     if (material_count % material_build_cost == 0)
                     {
                         wall_build_count++;
                     }
                 }
-               
+
             }
         }
-        
+
     }
 
     public void DestroyWall(InputAction.CallbackContext context)
