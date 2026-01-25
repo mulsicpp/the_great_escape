@@ -72,10 +72,8 @@ public struct PlayerTransform
     }
 }
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
-    public PlayerTransform player_transform;
-
     TransformInterpolation interpolation;
 
     public MazeGrid maze_grid;

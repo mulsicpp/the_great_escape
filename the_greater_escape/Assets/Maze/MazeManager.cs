@@ -56,6 +56,9 @@ public class MazeManager : MonoBehaviour
         
 
         player.telemetry = new TelemetryEncoder((uint)seed, (uint)dim);
+
+        var enemy = GetComponentInChildren<Enemy>();
+        enemy.maze_grid = grid;
     }
 
 
