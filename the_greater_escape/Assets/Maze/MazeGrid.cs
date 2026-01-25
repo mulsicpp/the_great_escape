@@ -24,8 +24,8 @@ public class MazeGrid
             var cell1 = Vector3Int.RoundToInt(wall.Item1);
             var cell2 = Vector3Int.RoundToInt(wall.Item2);
 
-            //Between(cell1, cell2) = true;
-            if (wall.Item3 == 1)
+            // Between(cell1, cell2) = true;
+            if (wall.Item3 == 1 || wall.Item3 == 2)
             {
                 ref var wall_ref = ref Between(cell1, cell2);
                 wall_ref = true;
