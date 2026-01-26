@@ -2,8 +2,15 @@
     <ui:VisualElement name="Root" style="flex-grow: 1; width: 100%; height: 100%;">
         <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 2%;" />
         <ui:VisualElement style="flex-grow: 0; height: 10%; flex-shrink: 0; flex-direction: row; align-items: center; justify-content: flex-end;">
+            <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; align-items: flex-end; flex-direction: row; height: 100%; width: 7%; background-image: url(&quot;project://database/Assets/UI/build%202.png?fileID=2800000&amp;guid=85fcc92afe2bf6f49839213085a1228c&amp;type=3#build 2&quot;); -unity-background-scale-mode: scale-to-fit;" />
+            <ui:Label text="0" name="walls" style="-unity-font-definition: url(&quot;project://database/Assets/UI/HelpMe.ttf?fileID=12800000&amp;guid=b7aa06ca69d7d934699c3c632d135f68&amp;type=3#HelpMe&quot;); color: rgb(255, 255, 255); font-size: 80%; height: 100%; -unity-text-align: middle-left; width: 7%;" />
             <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; align-items: flex-end; flex-direction: row; height: 100%; width: 7%; background-image: url(&quot;project://database/Assets/UI/sticker.png?fileID=2800000&amp;guid=0bdc5d3bb63f4104b898d1c58dc15dd2&amp;type=3#sticker&quot;); -unity-background-scale-mode: scale-to-fit;" />
-            <ui:Label text="Label" name="stickers" style="-unity-font-definition: url(&quot;project://database/Assets/UI/HelpMe.ttf?fileID=12800000&amp;guid=b7aa06ca69d7d934699c3c632d135f68&amp;type=3#HelpMe&quot;); color: rgb(255, 255, 255); font-size: 80%; height: 100%; -unity-text-align: middle-left; width: 7%;" />
+            <ui:Label text="0" name="stickers" style="-unity-font-definition: url(&quot;project://database/Assets/UI/HelpMe.ttf?fileID=12800000&amp;guid=b7aa06ca69d7d934699c3c632d135f68&amp;type=3#HelpMe&quot;); color: rgb(255, 255, 255); font-size: 80%; height: 100%; -unity-text-align: middle-left; width: 7%;" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 0; height: 20%; flex-shrink: 0; flex-direction: row; align-items: center; justify-content: flex-end;">
+        <CooldownIcon name="build" style="background-image: url(&apos;project://database/Assets/UI/build%201.png?fileID=2800000&amp;guid=8007c07309b0afc4081dd25f164844f7&amp;type=3#build 1&apos;); height: 100%; width: 14%; -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: rgb(255, 255, 255); visibility: hidden;" />
+        <CooldownIcon name="destroy" style="background-image: url(&quot;project://database/Assets/UI/output-onlinepngtools%20(3).png?fileID=2800000&amp;guid=c0fe71c532d42eb42924f0557e8c5f2e&amp;type=3#output-onlinepngtools (3)&quot;); height: 100%; width: 14%; -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: rgb(255, 255, 255);" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; background-size: 100% 5%; height: 5%; width: 100%;" />
 </ui:UXML>
