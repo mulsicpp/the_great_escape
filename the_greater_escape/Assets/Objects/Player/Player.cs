@@ -158,7 +158,7 @@ public class Player : Entity
             finish.Show();
         }
 
-        if (player_transform.grid_position == enemy.player_transform.grid_position || (enemy.interpolation is MoveForwardInterpolation && player_transform.grid_position == enemy.player_transform.grid_position + enemy.player_transform.forward))
+        if (player_transform.grid_position == enemy.player_transform.grid_position)
         {
             finish.title.text = "YOU LOST";
             finish.Show();
