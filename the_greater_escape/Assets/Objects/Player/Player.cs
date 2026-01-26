@@ -72,14 +72,14 @@ public struct PlayerTransform
     }
 }
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
-    public PlayerTransform player_transform;
-
     TransformInterpolation interpolation;
 
     public MazeGrid maze_grid;
     public GameObject wallParent;
+
+    public Enemy enemy;
 
     public GameObject graffiti_prefab;
     public int graffiti_count;
@@ -135,6 +135,11 @@ public class Player : MonoBehaviour
         if (!maze_grid.Contains(player_transform.grid_position))
         {
             telemetry.AddEvent(TelemetryEvent.GAME_WON);
+            finish.Show();
+        }
+
+        if (player_transform.grid_position == enemy.player_transform.grid_position || (enemy.interpolation is MoveForwardInterpolation && player_transform.grid_position == enemy.player_transform.grid_position + enemy.player_transform.forward))
+        {
             finish.Show();
         }
     }
@@ -233,26 +238,27 @@ public class Player : MonoBehaviour
 
     public void BuildWall(InputAction.CallbackContext context)
     {
-        if(context.started && Time.timeScale > 0.5)
+        if (context.started && Time.timeScale > 0.5)
         {
             var target_position = player_transform.grid_position + player_transform.forward;
-            if(Physics.Raycast(player_transform.Position(), player_transform.forward, out RaycastHit hitInfo, 1f))
+            if (Physics.Raycast(player_transform.Position(), player_transform.forward, out RaycastHit hitInfo, 1f))
             {
                 if (!hitInfo.collider.GetComponent<MeshRenderer>().enabled)
                 {
+                    hitInfo.collider.gameObject.layer = 0; // default
                     hitInfo.collider.GetComponent<MeshRenderer>().enabled = true;
                     maze_grid.BuildWall(player_transform.grid_position, target_position);
-                    
+
                     material_count++;
                     if (material_count % material_build_cost == 0)
                     {
                         wall_build_count++;
                     }
                 }
-               
+
             }
         }
-        
+
     }
 
     public void DestroyWall(InputAction.CallbackContext context)
@@ -264,9 +270,11 @@ public class Player : MonoBehaviour
             {
                 if (hitInfo.collider.GetComponent<MeshRenderer>().enabled && hitInfo.collider.gameObject.tag == "Inner Wall")
                 {
+                    hitInfo.collider.gameObject.layer = 6; // random layer
                     hitInfo.collider.GetComponent<MeshRenderer>().enabled = false;
                     maze_grid.DestroyWall(player_transform.grid_position, target_position);
                     wall_build_count--;
+                    enemy.Alert(player_transform.grid_position);
                 }
 
             }

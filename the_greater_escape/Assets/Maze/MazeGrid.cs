@@ -24,8 +24,8 @@ public class MazeGrid
             var cell1 = Vector3Int.RoundToInt(wall.Item1);
             var cell2 = Vector3Int.RoundToInt(wall.Item2);
 
-            //Between(cell1, cell2) = true;
-            if (wall.Item3 == 1)
+            // Between(cell1, cell2) = true;
+            if (wall.Item3 == 1 || wall.Item3 == 2)
             {
                 ref var wall_ref = ref Between(cell1, cell2);
                 wall_ref = true;
@@ -78,7 +78,7 @@ public class MazeGrid
         return position.x >= 0 && position.x < dim && position.y >= 0 && position.y < dim && position.z >= 0 && position.z < dim;
     }
 
-    public NavGrid navigateTo(Vector3Int position)
+    public NavGrid NavigateTo(Vector3Int position)
     {
         if(!Contains(position)) return null;
 
@@ -120,6 +120,25 @@ public class MazeGrid
         }
 
         return nav_grid;
+    }
+
+    public List<Vector3Int> OptimalPath(Vector3Int from, Vector3Int to)
+    {
+        var nav_grid = NavigateTo(to);
+
+        List<Vector3Int> positions = new();
+
+        positions.Add(from);
+
+        Vector3Int pos = from;
+
+        while(pos != to)
+        {
+            pos += nav_grid.GetDirection(pos);
+            positions.Add(pos);
+        }
+
+        return positions;
     }
 }
 
@@ -190,5 +209,17 @@ public class NavGrid
     public Vector3Int GetDirection(Vector3Int pos)
     {
         return nav_directions[(int)nav_grid[pos.x, pos.y, pos.z]];
+    }
+}
+
+public class WeightedGrid
+{
+    float[,,,] weight_grid;
+    int dim;
+
+    public WeightedGrid(int dim)
+    {
+        this.dim = dim;
+        weight_grid = new float[dim, dim, dim, 6];
     }
 }

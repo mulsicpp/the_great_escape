@@ -18,9 +18,9 @@ public abstract class TransformInterpolation
         return Matrix4x4.identity;
     }
 
-    public abstract void Finish(Player player);
+    public abstract void Finish(Entity player);
 
-    public bool Step(Player player, float deltaTime)
+    public bool Step(Entity player, float deltaTime)
     {
         time += deltaTime * Factor();
 
@@ -43,11 +43,9 @@ public abstract class TransformInterpolation
 
 public class RotateLeftInterpolation : TransformInterpolation
 {
-    public override void Finish(Player player)
+    public override void Finish(Entity player)
     {
         player.player_transform.forward = -player.player_transform.calc_right();
-
-        player.telemetry.AddEvent(TelemetryEvent.LEFT);
     }
 
     public override Matrix4x4 InterpolatedRotation(float time)
@@ -58,11 +56,9 @@ public class RotateLeftInterpolation : TransformInterpolation
 
 public class RotateRightInterpolation : TransformInterpolation
 {
-    public override void Finish(Player player)
+    public override void Finish(Entity player)
     {
         player.player_transform.forward = player.player_transform.calc_right();
-
-        player.telemetry.AddEvent(TelemetryEvent.RIGHT);
     }
 
     public override Matrix4x4 InterpolatedRotation(float time)
@@ -73,13 +69,11 @@ public class RotateRightInterpolation : TransformInterpolation
 
 public class RotateDownInterpolation : TransformInterpolation
 {
-    public override void Finish(Player player)
+    public override void Finish(Entity player)
     {
         var down = -player.player_transform.up;
         player.player_transform.up = player.player_transform.forward;
         player.player_transform.forward = down;
-
-        player.telemetry.AddEvent(TelemetryEvent.DOWN);
     }
 
     public override Matrix4x4 InterpolatedRotation(float time)
@@ -90,13 +84,11 @@ public class RotateDownInterpolation : TransformInterpolation
 
 public class RotateUpInterpolation : TransformInterpolation
 {
-    public override void Finish(Player player)
+    public override void Finish(Entity player)
     {
         var backward = -player.player_transform.forward;
         player.player_transform.forward = player.player_transform.up;
         player.player_transform.up = backward;
-
-        player.telemetry.AddEvent(TelemetryEvent.UP);
     }
 
     public override Matrix4x4 InterpolatedRotation(float time)
@@ -107,10 +99,9 @@ public class RotateUpInterpolation : TransformInterpolation
 
 public class MoveForwardInterpolation : TransformInterpolation
 {
-    public override void Finish(Player player)
+    public override void Finish(Entity player)
     {
         player.player_transform.grid_position += player.player_transform.forward;
-        player.telemetry.AddEvent(TelemetryEvent.FORWARD);
     }
 
     public override Vector3 InterpolatedPosition(PlayerTransform player_transform, float time)
@@ -124,8 +115,7 @@ public class BumpWallInterpolation : TransformInterpolation
 
     public override float Factor() { return 2.0f; }
 
-    public override void Finish(Player player) {
-        player.telemetry.AddEvent(TelemetryEvent.BUMP);
+    public override void Finish(Entity player) {
     }
 
     public override Vector3 InterpolatedPosition(PlayerTransform player_transform, float time)

@@ -3,12 +3,14 @@ using UnityEngine;
 using System;
 using Unity.VisualScripting;
 using Object = UnityEngine.Object;
+using UnityEngine.UIElements;
 
 public class MazeManager : MonoBehaviour
 {
     public Maze maze;
     public MazeGrid grid;
     public NavGrid navGrid;
+    public List<Vector3Int> optimal_path;
 
     [SerializeField] public int dim;
     [SerializeField] public int seed;
@@ -36,8 +38,15 @@ public class MazeManager : MonoBehaviour
     {
         maze = new Maze(dim, seed);
         grid = new MazeGrid(maze);
-        navGrid = grid.navigateTo(new(dim - 1, dim - 1, dim - 1));
+        navGrid = grid.NavigateTo(new(dim - 1, dim - 1, dim - 1));
+        optimal_path = grid.OptimalPath(Vector3Int.zero, new (dim - 1, dim - 1, dim - 1));
         navGrid.Log();
+
+        foreach (var pos in optimal_path)
+        {
+            Debug.Log(pos);
+        }
+
         LoadMaze(maze, dim);
 
         var player = GetComponentInChildren<Player>();
@@ -47,6 +56,9 @@ public class MazeManager : MonoBehaviour
         
 
         player.telemetry = new TelemetryEncoder((uint)seed, (uint)dim);
+
+        var enemy = GetComponentInChildren<Enemy>();
+        enemy.maze_grid = grid;
     }
 
 
@@ -63,6 +75,7 @@ public class MazeManager : MonoBehaviour
                 MeshRenderer rend = wall.GetComponent<MeshRenderer>();
                 wall.gameObject.tag = "Inner Wall";
                 rend.enabled = false;
+                wall.gameObject.layer = 6; // random layer
             }
             else if(cells.Item3 == 1)
             {
@@ -110,5 +123,11 @@ public class MazeManager : MonoBehaviour
                     var dir = navGrid.GetDirection(new Vector3Int(i, j, k));
                     Gizmos.DrawLine(new Vector3(i, j, k), new Vector3(i, j, k) + new Vector3(dir.x, dir.y, dir.z) * 0.5f);
                 }
+
+        Gizmos.color = Color.antiqueWhite;
+        foreach (var pos in optimal_path)
+        {
+            Gizmos.DrawCube(new Vector3(pos.x, pos.y, pos.z), new Vector3(0.2f, 0.2f, 0.2f));
+        }
     }
 }
