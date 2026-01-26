@@ -11,6 +11,8 @@ public class Finish : MonoBehaviour
     private Button mainmenu;
     private Button restart;
 
+    public Label title;
+
     public MazeManager mazeManager;
 
     private void Awake()
@@ -23,6 +25,8 @@ public class Finish : MonoBehaviour
     {
         mainmenu = root.Q<Button>("main-menu");
         restart = root.Q<Button>("restart");
+        title = root.Q<Label>("Title");
+
 
         mainmenu.clicked += OnMainMenuPressed;
         restart.clicked += OnRestartPressed;
