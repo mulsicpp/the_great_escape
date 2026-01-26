@@ -88,10 +88,7 @@ public class MainMenu : MonoBehaviour, IUIScreen
         mazePrefab.dim = selectedSize;
         mazePrefab.gameObject.SetActive(true);
 
-        Debug.Log("Play pressed!");
-        Debug.Log("Volume: " + selectedVolume);
-        Debug.Log("Size: " + selectedSize);
-        Debug.Log("Seed: " + selectedSeed);
+
 
         // Hide menu
         root.style.display = DisplayStyle.None;

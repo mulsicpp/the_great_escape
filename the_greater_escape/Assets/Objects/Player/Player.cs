@@ -1,7 +1,11 @@
+using System.Diagnostics;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+
+
 
 public enum TelemetryEvent
 {
@@ -26,7 +30,7 @@ public class TelemetryEncoder
 
     public TelemetryEncoder(uint seed, uint size)
     {
-        Debug.Log(System.IO.Directory.GetCurrentDirectory());
+        UnityEngine.Debug.Log(System.IO.Directory.GetCurrentDirectory());
 
         var time = System.DateTime.Now;
 
@@ -92,10 +96,18 @@ public class Player : Entity
     public Color[] graffiti_colors;
     public AudioClip[] footsteps;
     public AudioClip suprise;
+    public AudioClip placeWall;
+    public AudioClip destroyWall;
     public AudioSource audiosource;
 
     public Pause pause;
     public Finish finish;
+
+    public Ingame ingame;
+    public float cooldown = 30f;
+    private float cooldownTimer = 30f;
+
+    public int walls = 0;
 
     public TelemetryEncoder telemetry;
 
@@ -107,6 +119,8 @@ public class Player : Entity
 
     void OnEnable()
     {
+        walls = 0;
+        cooldownTimer = cooldown;
         player_transform = new PlayerTransform
         {
             grid_position = Vector3Int.zero,
@@ -124,6 +138,11 @@ public class Player : Entity
     // Update is called once per frame
     void Update()
     {
+        if (cooldownTimer > 0f)
+        {
+            cooldownTimer -= Time.deltaTime;
+            ingame.destroy.CooldownPercent = cooldownTimer/cooldown;
+        }
         if (interpolation != null)
         {
             if (interpolation.Step(this, Time.deltaTime * 3.0f))
@@ -238,17 +257,18 @@ public class Player : Entity
 
     public void BuildWall(InputAction.CallbackContext context)
     {
-        if (context.started && Time.timeScale > 0.5)
+        if (context.started && Time.timeScale > 0.5 && walls > 0)
         {
             var target_position = player_transform.grid_position + player_transform.forward;
             if (Physics.Raycast(player_transform.Position(), player_transform.forward, out RaycastHit hitInfo, 1f))
             {
                 if (!hitInfo.collider.GetComponent<MeshRenderer>().enabled)
                 {
+                    walls--;
                     hitInfo.collider.gameObject.layer = 0; // default
                     hitInfo.collider.GetComponent<MeshRenderer>().enabled = true;
                     maze_grid.BuildWall(player_transform.grid_position, target_position);
-
+                    audiosource.PlayOneShot(placeWall);
                     material_count++;
                     if (material_count % material_build_cost == 0)
                     {
@@ -263,15 +283,18 @@ public class Player : Entity
 
     public void DestroyWall(InputAction.CallbackContext context)
     {
-        if (context.started && Time.timeScale > 0.5)
+        if (context.started && Time.timeScale > 0.5 && cooldownTimer <= 0f)
         {
             var target_position = player_transform.grid_position + player_transform.forward;
             if (Physics.Raycast(player_transform.Position(), player_transform.forward, out RaycastHit hitInfo, 1f))
             {
                 if (hitInfo.collider.GetComponent<MeshRenderer>().enabled && hitInfo.collider.gameObject.tag == "Inner Wall")
                 {
+                    walls++;
+                    cooldownTimer = cooldown;
                     hitInfo.collider.gameObject.layer = 6; // random layer
                     hitInfo.collider.GetComponent<MeshRenderer>().enabled = false;
+                    audiosource.PlayOneShot(destroyWall);
                     maze_grid.DestroyWall(player_transform.grid_position, target_position);
                     wall_build_count--;
                     enemy.Alert(player_transform.grid_position);

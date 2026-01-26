@@ -38,9 +38,7 @@ public class Pause : MonoBehaviour, IUIScreen
         mainmenu.clicked += OnMainMenuPressed;
         tutorial.clicked += OnTutorialPressed;
         restart.clicked += OnRestartPressed;
-        Debug.Log(volume.value);
         volume.value = backgroundMusic.volume * 100;
-        Debug.Log(volume.value);
 
         volume.RegisterValueChangedCallback(evt =>
         {

@@ -42,10 +42,6 @@ public class MazeManager : MonoBehaviour
         optimal_path = grid.OptimalPath(Vector3Int.zero, new (dim - 1, dim - 1, dim - 1));
         navGrid.Log();
 
-        foreach (var pos in optimal_path)
-        {
-            Debug.Log(pos);
-        }
 
         LoadMaze(maze, dim);
 

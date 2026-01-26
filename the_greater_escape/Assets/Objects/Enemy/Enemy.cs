@@ -140,16 +140,11 @@ public class Enemy : Entity
         Vector3 dir = diff_vec.normalized;
         float dist = diff_vec.magnitude;
 
-        Debug.Log(player_transform.forward);
-        Debug.Log(transform.forward + " " + dir);
-
         var dot = Vector3.Dot(dir, transform.forward);
 
-        Debug.Log(dot);
 
         if (dot < 0.0f)
         {
-            Debug.Log("facing away");
             return false;
         }
 
