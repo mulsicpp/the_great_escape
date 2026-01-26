@@ -141,7 +141,7 @@ public class Player : Entity
         if (cooldownTimer > 0f)
         {
             cooldownTimer -= Time.deltaTime;
-            ingame.destroy.CooldownPercent = cooldownTimer/cooldown;
+            ingame.destroy.CooldownPercent = cooldownTimer / cooldown;
         }
         if (interpolation != null)
         {
@@ -154,11 +154,13 @@ public class Player : Entity
         if (!maze_grid.Contains(player_transform.grid_position))
         {
             telemetry.AddEvent(TelemetryEvent.GAME_WON);
+            finish.title.text = "YOU WON";
             finish.Show();
         }
 
         if (player_transform.grid_position == enemy.player_transform.grid_position || (enemy.interpolation is MoveForwardInterpolation && player_transform.grid_position == enemy.player_transform.grid_position + enemy.player_transform.forward))
         {
+            finish.title.text = "YOU LOST";
             finish.Show();
         }
     }
