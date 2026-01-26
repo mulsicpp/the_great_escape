@@ -26,6 +26,9 @@ public class Enemy : Entity
 
     public Player player;
 
+    public AudioSource audioSource;
+    public AudioClip monsterSound;
+
     public bool search_exit;
 
     void OnEnable()
@@ -93,6 +96,11 @@ public class Enemy : Entity
             {
                 case 1:
                     interpolation = new MoveForwardInterpolation();
+                    int rnd = Random.Range(0, 10);
+                    if(rnd >= 2)
+                    {
+                        audioSource.PlayOneShot(monsterSound);
+                    }
                     break;
                 case -1:
                     interpolation = new RotateRightInterpolation();
