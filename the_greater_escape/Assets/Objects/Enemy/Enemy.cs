@@ -26,6 +26,8 @@ public class Enemy : Entity
 
     public Player player;
 
+    public bool search_exit;
+
     void OnEnable()
     {
         player_transform = new PlayerTransform
@@ -42,6 +44,7 @@ public class Enemy : Entity
 
         last_knwon_player_pos = Vector3Int.zero;
         state = EnemyState.Patroling;
+        search_exit = false;
     }
 
     public static int Dot(Vector3Int v1, Vector3Int v2)
@@ -56,6 +59,7 @@ public class Enemy : Entity
         if(Sees(player))
         {
             state = EnemyState.Chasing;
+            last_knwon_player_pos = player.player_transform.grid_position;
         }
 
         switch(state)
@@ -69,9 +73,22 @@ public class Enemy : Entity
         }
         if (interpolation == null)
         {
-            nav_grid = maze_grid.NavigateTo(last_knwon_player_pos);
+            nav_grid = GetNavGrid();
 
             var dir = nav_grid.GetDirection(player_transform.grid_position);
+            if (dir == Vector3Int.zero)
+            {
+                if(state == EnemyState.Patroling)
+                {
+                    search_exit = !search_exit;
+                } else
+                {
+                    search_exit = true;
+                    state = EnemyState.Patroling;
+                }
+                nav_grid = GetNavGrid();
+            }
+
             switch (Dot(dir, player_transform.forward))
             {
                 case 1:
@@ -134,5 +151,17 @@ public class Enemy : Entity
         RaycastHit hit;
 
         return !Physics.Raycast(transform.position, dir, out hit, dist, 0b111011);
+    }
+
+    public NavGrid GetNavGrid()
+    {
+        if(state == EnemyState.Patroling && search_exit)
+        {
+            var v = maze_grid.dim - 1;
+            return maze_grid.NavigateTo(new(v, v, v));
+        } else
+        {
+            return maze_grid.NavigateTo(last_knwon_player_pos);
+        }
     }
 }

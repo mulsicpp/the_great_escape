@@ -96,6 +96,8 @@ public class Player : Entity
     public Color[] graffiti_colors;
     public AudioClip[] footsteps;
     public AudioClip suprise;
+    public AudioClip placeWall;
+    public AudioClip destroyWall;
     public AudioSource audiosource;
 
     public Pause pause;
@@ -266,7 +268,7 @@ public class Player : Entity
                     hitInfo.collider.gameObject.layer = 0; // default
                     hitInfo.collider.GetComponent<MeshRenderer>().enabled = true;
                     maze_grid.BuildWall(player_transform.grid_position, target_position);
-
+                    audiosource.PlayOneShot(placeWall);
                     material_count++;
                     if (material_count % material_build_cost == 0)
                     {
@@ -292,6 +294,7 @@ public class Player : Entity
                     cooldownTimer = cooldown;
                     hitInfo.collider.gameObject.layer = 6; // random layer
                     hitInfo.collider.GetComponent<MeshRenderer>().enabled = false;
+                    audiosource.PlayOneShot(destroyWall);
                     maze_grid.DestroyWall(player_transform.grid_position, target_position);
                     wall_build_count--;
                     enemy.Alert(player_transform.grid_position);
