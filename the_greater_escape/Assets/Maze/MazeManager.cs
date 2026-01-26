@@ -75,6 +75,7 @@ public class MazeManager : MonoBehaviour
                 MeshRenderer rend = wall.GetComponent<MeshRenderer>();
                 wall.gameObject.tag = "Inner Wall";
                 rend.enabled = false;
+                wall.gameObject.layer = 6; // random layer
             }
             else if(cells.Item3 == 1)
             {

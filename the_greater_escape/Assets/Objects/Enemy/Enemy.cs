@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public enum EnemyState
@@ -22,6 +23,8 @@ public class Enemy : Entity
     public NavGrid nav_grid;
     public EnemyState state;
     public float speed;
+
+    public Player player;
 
     void OnEnable()
     {
@@ -50,6 +53,11 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
+        if(Sees(player))
+        {
+            state = EnemyState.Chasing;
+        }
+
         switch(state)
         {
             case EnemyState.Patroling:
@@ -106,5 +114,30 @@ public class Enemy : Entity
     {
         last_knwon_player_pos = position;
         state = EnemyState.Inspecting;
+    }
+
+    public bool Sees(Player player)
+    {
+        Vector3 diff_vec = player.transform.position - transform.position;
+
+        Vector3 dir = diff_vec.normalized;
+        float dist = diff_vec.magnitude;
+
+        Debug.Log(player_transform.forward);
+        Debug.Log(transform.forward + " " + dir);
+
+        var dot = Vector3.Dot(dir, transform.forward);
+
+        Debug.Log(dot);
+
+        if (dot < 0.0f)
+        {
+            Debug.Log("facing away");
+            return false;
+        }
+
+        RaycastHit hit;
+
+        return !Physics.Raycast(transform.position, dir, out hit, dist, 0b111011);
     }
 }

@@ -245,6 +245,7 @@ public class Player : Entity
             {
                 if (!hitInfo.collider.GetComponent<MeshRenderer>().enabled)
                 {
+                    hitInfo.collider.gameObject.layer = 0; // default
                     hitInfo.collider.GetComponent<MeshRenderer>().enabled = true;
                     maze_grid.BuildWall(player_transform.grid_position, target_position);
 
@@ -269,6 +270,7 @@ public class Player : Entity
             {
                 if (hitInfo.collider.GetComponent<MeshRenderer>().enabled && hitInfo.collider.gameObject.tag == "Inner Wall")
                 {
+                    hitInfo.collider.gameObject.layer = 6; // random layer
                     hitInfo.collider.GetComponent<MeshRenderer>().enabled = false;
                     maze_grid.DestroyWall(player_transform.grid_position, target_position);
                     wall_build_count--;
