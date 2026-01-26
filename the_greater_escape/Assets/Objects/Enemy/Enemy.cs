@@ -13,8 +13,8 @@ public class Enemy : Entity
     public MazeGrid maze_grid;
 
     public const float PATROLING_SPEED = 0.5f;
-    public const float INSPECTING_SPEED = 0.8f;
-    public const float CHASE_SPEED = 1.2f;
+    public const float INSPECTING_SPEED = 1.0f;
+    public const float CHASE_SPEED = 1.5f;
 
     public TransformInterpolation interpolation;
 
@@ -100,5 +100,11 @@ public class Enemy : Entity
         {
             interpolation = null;
         }
+    }
+
+    public void Alert(Vector3Int position)
+    {
+        last_knwon_player_pos = position;
+        state = EnemyState.Inspecting;
     }
 }

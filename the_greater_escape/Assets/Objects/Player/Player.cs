@@ -272,6 +272,7 @@ public class Player : Entity
                     hitInfo.collider.GetComponent<MeshRenderer>().enabled = false;
                     maze_grid.DestroyWall(player_transform.grid_position, target_position);
                     wall_build_count--;
+                    enemy.Alert(player_transform.grid_position);
                 }
 
             }
