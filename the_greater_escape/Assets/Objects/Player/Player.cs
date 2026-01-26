@@ -154,14 +154,12 @@ public class Player : Entity
         if (!maze_grid.Contains(player_transform.grid_position))
         {
             telemetry.AddEvent(TelemetryEvent.GAME_WON);
-            finish.title.text = "YOU WON";
-            finish.Show();
+            finish.Show(true);
         }
 
         if (player_transform.grid_position == enemy.player_transform.grid_position)
         {
-            finish.title.text = "YOU LOST";
-            finish.Show();
+            finish.Show(false);
         }
     }
 

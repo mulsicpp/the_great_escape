@@ -56,10 +56,10 @@ public class Finish : MonoBehaviour
         mazeManager.gameObject.SetActive(true);
     }
 
-    public void Show()
+    public void Show(bool win)
     {
         mazeManager.gameObject.SetActive(false);
-
+        if (win) { title.text = "YOU WON"; } else title.text = "YOU LOST";
         root.style.display = DisplayStyle.Flex;
     }
 }
