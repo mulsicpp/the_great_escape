@@ -887,6 +887,18 @@ PrefabInstance:
       propertyPath: finish
       value: 
       objectReference: {fileID: 1553683595}
+    - target: {fileID: 55379643555740274, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: ingame
+      value: 
+      objectReference: {fileID: 1406843197}
+    - target: {fileID: 55379643555740274, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: placeWall
+      value: 
+      objectReference: {fileID: 8300000, guid: ab083dc19a56c1848b80c5223fd56e31, type: 3}
+    - target: {fileID: 55379643555740274, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
+      propertyPath: destroyWall
+      value: 
+      objectReference: {fileID: 8300000, guid: 5fcd2d2dc690b4a43abf789eb6595ff6, type: 3}
     - target: {fileID: 421819923884459150, guid: beb2dbd718676c54f9adf85db38fd892, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.07
